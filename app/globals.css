@@ -19,8 +19,475 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling for all elements */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.8);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.5) #000000;
+}
+
+/* Hero Section Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-scan {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  10% {
+    clip-path: inset(10% 0 90% 0);
+  }
+  20% {
+    clip-path: inset(20% 0 80% 0);
+  }
+  30% {
+    clip-path: inset(30% 0 70% 0);
+  }
+  40% {
+    clip-path: inset(40% 0 60% 0);
+  }
+  50% {
+    clip-path: inset(50% 0 50% 0);
+  }
+  60% {
+    clip-path: inset(60% 0 40% 0);
+  }
+  70% {
+    clip-path: inset(70% 0 30% 0);
+  }
+  80% {
+    clip-path: inset(80% 0 20% 0);
+  }
+  90% {
+    clip-path: inset(90% 0 10% 0);
+  }
+  100% {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+/* Hero Headline */
+.hero-headline {
+  font-family: 'Geist Bold', sans-serif;
+  animation: fadeInUp 1.2s ease-out;
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.02em;
+  word-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.1;
+}
+
+.hero-headline span {
+  display: block;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.hero-headline span:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.hero-headline span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.hero-headline span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* Hero Tagline */
+.hero-tagline {
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.8s forwards;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* Lets Talk Button - Liquid Glass Effect */
+.lets-talk-button {
+  position: relative;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lets-talk-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.lets-talk-button:hover::before {
+  left: 100%;
+}
+
+.lets-talk-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.lets-talk-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.lets-talk-button:hover::after {
+  opacity: 1;
+}
+
+/* Navbar Styles */
+.navbar-wrapper {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none; /* keeps it floating nicely */
+}
+
+.navbar-oval {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px; /* ⭐ makes it oval */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: auto; /* enables clicks INSIDE */
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Navigation Links */
+.nav-link {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Brand/Logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+}
+
+.navbar-logo-icon {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Navbar Buttons */
+.navbar-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.navbar-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+}
+
+.navbar-btn-primary {
+  background: #ffffff;
+  color: #000000;
+}
+
+.navbar-btn-primary:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 1rem;
+  }
+  
+  .navbar-center {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+.grainy-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.grainy-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.18; /* adjust grain strength */
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Section Glow Effects */
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes glow-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* Smooth section transitions */
+section {
+  position: relative;
+  transition: opacity 0.6s ease-in-out;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Optimize scrolling performance */
+main {
+  will-change: scroll-position;
+  transform: translateZ(0);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for smoother animations */
+.animate-pulse,
+.animate-pulse * {
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+/* Enhanced service cards */
+.service-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a855f7, #22d3ee, #a855f7);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Shadow display font utility */
+.shadow-headline {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fef3c7; /* light fill so the stroke + shadow pop */
+  -webkit-text-stroke: 2px #020617; /* dark outline */
+  text-stroke: 2px #020617;
+  text-shadow:
+    3px 3px 0 #020617,
+    6px 6px 0 #020617,
+    9px 9px 0 #020617; /* stacked to fake 3D depth */
 }
