@@ -9,4 +9,3 @@ export default function HomePage() {
     </main>
   );
 }
-// End of file: app/page.tsx
