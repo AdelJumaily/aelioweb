@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base background / foreground from palette */
+  --background: #0d0106; /* Coffee Bean */
+  --foreground: #fbfbff; /* Ghost White */
+
+  /* Brand palette */
+  --brand-deep: #0d0106;
+  --brand-primary: #3626a7; /* Vivid Royal */
+  --brand-primary-soft: #657ed4; /* Glaucous */
+  --brand-accent: #ff331f; /* Scarlet Fire */
+  --brand-light: #fbfbff; /* Ghost White */
+
+  /* Semantic tokens */
+  --primary: var(--brand-primary);
+  --primary-hover: #2b1f87;
+  --secondary: var(--brand-primary-soft);
+  --secondary-hover: #4f66b1;
+  --accent: var(--brand-accent);
+  --accent-hover: #e62d1c;
+
+  /* Neutral scale tuned around the dark background */
+  --gray-50: #f5f5f7;
+  --gray-100: #e5e7eb;
+  --gray-200: #d1d5db;
+  --gray-300: #9ca3af;
+  --gray-400: #6b7280;
+  --gray-500: #4b5563;
+  --gray-600: #374151;
+  --gray-700: #1f2937;
+  --gray-800: #111827;
+  --gray-900: #05040a;
 }
 
 @theme inline {
@@ -10,12 +38,53 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+}
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 0.5rem));
+  }
+}
+
+.animate-scroll {
+  animation: var(--animate-scroll);
+}
+
+/* Scroll indicator animations */
+@keyframes bounce-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-down {
+  animation: bounce-down 2s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+  opacity: 0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #05040a;
+    --foreground: #fbfbff;
   }
 }
 
@@ -34,6 +103,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Headers use Times New Roman */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Times New Roman", Times, serif;
+}
+
 /* Smooth scrolling for all elements */
 * {
   scroll-behavior: smooth;
@@ -49,18 +123,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.5);
+  background: var(--brand-primary-soft);
   border-radius: 5px;
+  opacity: 0.6;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.8);
+  background: var(--primary);
+  opacity: 0.9;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(168, 85, 247, 0.5) #000000;
+  scrollbar-color: var(--brand-primary-soft) var(--brand-deep);
 }
 
 /* Hero Section Animations */
@@ -254,25 +330,29 @@ body {
 
 /* Navbar Styles */
 .navbar-wrapper {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
+  position: fixed !important;
+  top: 1rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 99999 !important;
   pointer-events: none; /* keeps it floating nicely */
+  will-change: transform;
 }
 
 .navbar-oval {
   display: flex;
   align-items: center;
   gap: 2rem;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(245, 241, 232, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   padding: 0.75rem 1.5rem;
-  border-radius: 999px; /* ⭐ makes it oval */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  pointer-events: auto; /* enables clicks INSIDE */
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  pointer-events: auto;
 }
 
 .navbar-links {
@@ -285,14 +365,14 @@ body {
 .nav-link {
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
 }
 
 /* Brand/Logo */
@@ -301,20 +381,20 @@ body {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.9);
   white-space: nowrap;
 }
 
 .navbar-logo-icon {
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .navbar-logo-text {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.9);
 }
 
 /* Navbar Buttons */
@@ -330,22 +410,27 @@ body {
 }
 
 .navbar-btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .navbar-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 1);
+  transform: translateY(-1px);
 }
 
 .navbar-btn-primary {
-  background: #ffffff;
-  color: #000000;
+  background: #a3430a;
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navbar-btn-primary:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-1px);
 }
 
 /* Responsive */
@@ -470,7 +555,7 @@ main {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #a855f7, #22d3ee, #a855f7);
+  background: linear-gradient(90deg, #3626a7, #657ed4, #ff331f);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -478,16 +563,107 @@ main {
   animation: gradient-shift 3s ease infinite;
 }
 
-/* Shadow display font utility */
+/* Cosmic Hero Background */
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Vertical aurora streaks */
+    linear-gradient(
+      to bottom,
+      rgba(10, 10, 25, 0.3),
+      rgba(20, 10, 40, 0.7),
+      rgba(5, 5, 10, 1)
+    ),
+    /* Warm center glow */
+    radial-gradient(
+      at 50% 65%,
+      rgba(255, 150, 130, 0.35),
+      transparent 60%
+    ),
+    /* Cool bluish glow (top left) */
+    radial-gradient(
+      at 40% 20%,
+      rgba(140, 160, 255, 0.25),
+      transparent 55%
+    ),
+    /* Base solid */
+    #000;
+
+  background-blend-mode: screen, overlay, normal;
+  filter: saturate(1.15);
+}
+
+/* Star / noise overlay */
+.hero-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  background-size: cover;
+  opacity: 0.2;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Headline style - no shadow */
 .shadow-headline {
+  font-family: "Times New Roman", Times, serif;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #fef3c7; /* light fill so the stroke + shadow pop */
-  -webkit-text-stroke: 2px #020617; /* dark outline */
-  text-stroke: 2px #020617;
-  text-shadow:
-    3px 3px 0 #020617,
-    6px 6px 0 #020617,
-    9px 9px 0 #020617; /* stacked to fake 3D depth */
+  color: #1a1a1a;
+}
+
+/* Hero Service Cards */
+.service-card-hero {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.service-card-hero:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Vertical Services Carousel */
+@keyframes vertical-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-vertical-scroll {
+  animation: vertical-scroll var(--vertical-scroll-duration, 28s) linear infinite;
+}
+
+/* soft fade top/bottom like the reference */
+.mask-vertical {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    white 15%,
+    white 85%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    white 15%,
+    white 85%,
+    transparent
+  );
+}
+
+/* Hide Spline watermark */
+a[href*="spline.design"],
+div[style*="spline"],
+iframe[src*="spline"] + div,
+canvas + div[style*="position"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }

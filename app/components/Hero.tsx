@@ -1,54 +1,84 @@
-'use client';
+"use client";
 
-import DarkVeil from './DarkVeil';
-import Prism from './Prism';
+import { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { gsap } from 'gsap';
+import ContactModal from './ContactModal';
+
+const Spline = dynamic(
+  () => import('@splinetool/react-spline'),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-black" />,
+  }
+);
 
 export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      // Animate button on mount
+      gsap.fromTo(
+        buttonRef.current,
+        {
+          opacity: 0,
+          y: 20,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: 1,
+          ease: 'back.out(1.7)',
+        }
+      );
+
+      // Continuous subtle pulse animation
+      gsap.to(buttonRef.current, {
+        scale: 1.05,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+        delay: 2,
+      });
+    }
+  }, []);
+
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Hero Section */}
-      <div className="grainy-bg relative w-full h-full flex items-center">
-        {/* DarkVeil Background */}
-        <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, background: '#000000' }}>
-        <Prism
-            numPrisms={30}
-            prismColor="255, 255, 255"
-            maxOpacity={0.05}
-            minOpacity={0.02}
-            animationDuration={8000}
+    <>
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+        <div className="flex-1">
+          {isClient && (
+            <Spline
+              scene="/scene.splinecode"
+              style={{ width: '100%', height: '100%' }}
             />
+          )}
         </div>
-
-        {/* Main Content Container */}
-        <div className="relative z-20 w-full h-full flex items-center justify-center">
-          {/* Centered Hero Content */}
-          <div className="px-6 md:px-12 lg:px-20 max-w-4xl text-center">
-            {/* Main Headline */}
-            <h1 className="hero-headline text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-tight mb-6">
-              The digital backbone for modern businesses
-            </h1>
-
-            {/* Description */}
-            <p className="text-lg md:text-xl lg:text-2xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Aelio builds high-performance websites and brand ecosystems designed to scale, convert, and dominate your industry.
-            </p>
-
-            {/* Lets Talk Button */}
-            <div className="flex justify-center">
-              <button className="lets-talk-button">
-                Lets talk
-              </button>
-            </div>
-          </div>
-
-          {/* Right Side - Tagline */}
-          <div className="hidden md:block absolute right-6 md:right-12 lg:right-20 top-1/2 -translate-y-1/2">
-            <p className="hero-tagline text-white uppercase text-sm md:text-base tracking-wider">
-              A CREATIVE, HUMAN, AND AMBITIOUS AGENCY
-            </p>
-          </div>
+        <div className="absolute bottom-[10vh] left-1/2 -translate-x-1/2 z-10">
+          <button
+            ref={buttonRef}
+            onClick={() => setIsModalOpen(true)}
+            className="px-8 py-4 bg-white text-black rounded-full hover:bg-gray-100 transition-all duration-200 flex items-center gap-2 text-base font-medium shadow-lg hover:shadow-xl"
+          >
+            Let&apos;s Talk
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
-      </div>
-        </section>
+      </section>
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }
