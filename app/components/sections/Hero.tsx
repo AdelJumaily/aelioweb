@@ -54,14 +54,14 @@ export default function Hero() {
 
         {/* Content */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center">
-          <div className="absolute bottom-[10vh] left-1/2 -translate-x-1/2">
+          <div className="absolute bottom-[8vh] md:bottom-[10vh] left-1/2 -translate-x-1/2 px-4">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-8 py-4 bg-white text-black rounded-full hover:bg-gray-100 transition-all duration-200 flex items-center gap-2 text-base font-medium shadow-lg hover:shadow-xl"
+              className="px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full hover:bg-gray-100 transition-all duration-200 flex items-center gap-2 text-sm md:text-base font-medium shadow-lg hover:shadow-xl"
             >
               Let&apos;s Talk
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 md:w-5 md:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

@@ -24,10 +24,7 @@ export default function PageContent() {
       {/* 3. Dashboard Zoom → Phone Transformation */}
       <AelioDashboardZoom />
 
-      {/* 4. Section 2 - Web & App development showcase */}
-      <WebAppShowcaseSection />
-
-      {/* 5. Section 3 - Scroll-pinned text reveal */}
+      {/* 4. Section 3 - Scroll-pinned text reveal */}
       <TextRevealSection />
 
       {/* 6. Section 4 - FAQ */}

@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CardSwap, { Card } from "../../../components/CardSwap";
 import GradualBlur from "../../../components/animations/GradualBlur";
 
 if (typeof window !== "undefined") {
@@ -10,19 +11,52 @@ if (typeof window !== "undefined") {
 }
 
 const processSteps = [
-  "Discovery",
-  "Strategy",
-  "Design",
-  "Development",
-  "Launch",
-  "Ongoing care",
+  {
+    number: "01",
+    title: "Discovery",
+    description: "We start with understanding your business, audience, and goals. Through research and strategy sessions, we map out the perfect path forward.",
+    icon: "🔍",
+  },
+  {
+    number: "02",
+    title: "Design",
+    description: "From moodboards to high-fidelity designs, we create interfaces that don't just look good—they drive action and engagement.",
+    icon: "🎨",
+  },
+  {
+    number: "03",
+    title: "Development",
+    description: "We build with modern technologies, ensuring your site is fast, secure, and scalable. Every line of code is crafted with care.",
+    icon: "</>",
+  },
+  {
+    number: "04",
+    title: "Launch",
+    description: "Smooth deployment and optimization. We ensure everything works perfectly before going live, then monitor and refine.",
+    icon: "🚀",
+  },
+  {
+    number: "05",
+    title: "Optimization",
+    description: "Post-launch, we analyze performance, gather feedback, and continuously improve. Your success is our ongoing commitment.",
+    icon: "⚡",
+  },
 ];
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const stepsRef = useRef<HTMLDivElement>(null);
-  const photoRef = useRef<HTMLDivElement>(null);
+  const leftContentRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -46,40 +80,20 @@ export default function ProcessSection() {
       );
     }
 
-    // Animate process steps
-    if (stepsRef.current) {
+    // Animate left content
+    if (leftContentRef.current) {
       gsap.fromTo(
-        stepsRef.current.children,
-        { opacity: 0, y: 20, scale: 0.9 },
+        leftContentRef.current.children,
+        { opacity: 0, x: -30 },
         {
           opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: stepsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }
-
-    // Animate photo
-    if (photoRef.current) {
-      gsap.fromTo(
-        photoRef.current,
-        { opacity: 0, scale: 0.95 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.9,
+          x: 0,
+          duration: 0.8,
+          stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: photoRef.current,
-            start: "top 85%",
+            trigger: leftContentRef.current,
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -95,52 +109,68 @@ export default function ProcessSection() {
     <section
       ref={sectionRef}
       id="process"
-      className="relative bg-[#5C4F42] px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
+      className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <h2
           ref={titleRef}
-          className="text-3xl md:text-4xl lg:text-5xl mb-12 text-center text-white font-normal"
+          className="text-3xl md:text-4xl lg:text-5xl mb-16 text-center text-black font-normal"
         >
-          Our website design & care process
+          Our web development process
         </h2>
 
-        <div ref={stepsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {processSteps.map((label, index) => (
-            <div
-              key={label}
-              className="flex flex-col items-center gap-3 text-center transition-transform hover:scale-105"
-            >
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#E6672E] text-white text-lg font-semibold shadow-lg">
-                {index + 1}
-              </div>
-              <span className="text-sm font-medium text-white">
-                {label}
-              </span>
+        <div className="relative min-h-[600px] flex flex-col lg:flex-row items-center gap-12">
+          {/* Left Side - Text Content */}
+          <div ref={leftContentRef} className="flex-1 space-y-8 max-w-2xl">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-normal text-black mb-4">
+                From concept to launch
+              </h3>
+              <p className="text-lg text-black/70 leading-relaxed">
+                We offer a complete process from discovery, branding, design, launch to post-launch optimization and testing. Every step is carefully planned and executed.
+              </p>
             </div>
-          ))}
-        </div>
+            <div className="space-y-4">
+              {processSteps.map((step, index) => (
+                <div key={step.number} className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-black text-white flex items-center justify-center text-lg font-semibold">
+                    {step.number}
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-medium text-black mb-1">
+                      {step.title}
+                    </h4>
+                    <p className="text-sm text-black/60 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        {/* Photo spot */}
-        <div
-          ref={photoRef}
-          className="relative w-full h-[300px] md:h-[400px] bg-white/5 border-2 border-dashed border-white/20 rounded-lg flex items-center justify-center mt-8"
-        >
-          <div className="text-center">
-            <svg
-              className="w-16 h-16 mx-auto mb-4 text-white/30"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Right Side - CardSwap Animation */}
+          <div className="flex-1 relative w-full lg:w-auto" style={{ height: isMobile ? '400px' : '500px' }}>
+            <CardSwap
+              width={isMobile ? 300 : 500}
+              height={isMobile ? 350 : 400}
+              cardDistance={isMobile ? 40 : 60}
+              verticalDistance={isMobile ? 50 : 70}
+              delay={2000}
+              pauseOnHover={false}
+              easing="linear"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <p className="text-white/50 text-sm">Process Image</p>
+              {processSteps.map((step, index) => (
+                <Card key={step.number} className="flex flex-col justify-center items-center text-center p-4 md:p-8">
+                  <div className="text-4xl md:text-6xl mb-4 md:mb-6">{step.icon}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">{step.number}</div>
+                  <h3 className="text-xl md:text-2xl font-semibold text-white mb-3 md:mb-4">{step.title}</h3>
+                  <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-xs px-2">
+                    {step.description}
+                  </p>
+                </Card>
+              ))}
+            </CardSwap>
           </div>
         </div>
       </div>

@@ -10,6 +10,10 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+interface FeaturesSectionProps {
+  onOpenModal: () => void;
+}
+
 const features = [
   {
     icon: (
@@ -23,19 +27,13 @@ const features = [
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
         />
       </svg>
     ),
-    title: "Start building immediately",
+    title: "Conversion-focused UX/UI",
     description:
-      "Deploy your website in minutes, not weeks. Your hosting, SSL, and CDN are already configured and ready.",
+      "Every design decision is backed by research and optimized for user engagement. We create interfaces that don't just look good—they drive action.",
   },
   {
     icon: (
@@ -49,13 +47,13 @@ const features = [
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
         />
       </svg>
     ),
-    title: "Never wait in line",
+    title: "Responsive & Mobile-first",
     description:
-      "Scale your infrastructure instantly. Run multiple projects in parallel. Stop paying for idle resources when you're done.",
+      "Your website looks perfect on every device. We build with mobile users in mind first, ensuring seamless experiences across all screen sizes.",
   },
   {
     icon: (
@@ -69,23 +67,21 @@ const features = [
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+          d="M13 10V3L4 14h7v7l9-11h-7z"
         />
       </svg>
     ),
-    title: "Cloud storage",
+    title: "Performance optimization",
     description:
-      "Store assets and data in distributed volumes, then access them wherever they're needed across your projects.",
+      "Lightning-fast load times and smooth animations. We optimize every aspect of your site for speed, ensuring your visitors never wait.",
   },
 ];
 
-export default function FeaturesSection() {
+export default function FeaturesSection({ onOpenModal }: FeaturesSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-  const cubesTopRef = useRef<HTMLDivElement>(null);
   const codeRef = useRef<HTMLDivElement>(null);
-  const cubesBottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -130,38 +126,14 @@ export default function FeaturesSection() {
       );
     }
 
-    // Animate cubes with floating effect
-    if (cubesTopRef.current) {
-      gsap.to(cubesTopRef.current.children, {
-        y: -10,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        stagger: 0.2,
-      });
-    }
-
-    if (cubesBottomRef.current) {
-      gsap.to(cubesBottomRef.current.children, {
-        y: 10,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        stagger: 0.2,
-      });
-    }
-
-    // Animate code panel
+    // Animate image
     if (codeRef.current) {
       gsap.fromTo(
         codeRef.current,
-        { opacity: 0, scale: 0.95, rotationX: -15 },
+        { opacity: 0, scale: 0.95 },
         {
           opacity: 1,
           scale: 1,
-          rotationX: 0,
           duration: 1.2,
           ease: "power3.out",
           scrollTrigger: {
@@ -181,147 +153,49 @@ export default function FeaturesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#5C4F42] px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
+      className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Side - Visual Elements */}
           <div ref={leftRef} className="relative h-[500px] md:h-[600px]">
-            {/* Top Cubes */}
-            <div
-              ref={cubesTopRef}
-              className="absolute top-0 left-0 right-0 grid grid-cols-2 gap-4"
-            >
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="relative w-16 h-16 md:w-20 md:h-20"
-                  style={{
-                    transform: "rotateX(45deg) rotateY(-45deg)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 bg-white/20 border border-white/30"
-                    style={{
-                      transform: "translateZ(20px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 bg-white/15 border border-white/20"
-                    style={{
-                      transform: "rotateY(90deg) translateZ(20px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 bg-white/25 border border-white/30"
-                    style={{
-                      transform: "rotateX(90deg) translateZ(20px)",
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Connecting Line Top */}
-            <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-0.5 h-16 bg-white/20" />
-
-            {/* Code Panel */}
             <div
               ref={codeRef}
-              className="absolute top-40 left-0 right-0 bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 transform-gpu"
-              style={{
-                transform: "perspective(1000px) rotateX(-5deg)",
-              }}
+              className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2 font-mono text-sm">
-                <div className="text-[#98D982]">
-                  <span className="text-white/50">from</span> aelio{" "}
-                  <span className="text-white/50">import</span> App, Deploy
-                </div>
-                <div className="text-[#98D982]">
-                  <span className="text-white/50">@</span>app
-                  <span className="text-white/50">.</span>deploy(
-                  <span className="text-[#FFD700]">"production"</span>)
-                </div>
-                <div className="text-white/70">
-                  <span className="text-white/50">def</span>{" "}
-                  <span className="text-[#98D982]">launch</span>
-                  <span className="text-white/50">(</span>site
-                  <span className="text-white/50">):</span>
-                </div>
-                <div className="text-white/70 pl-4">
-                  <span className="text-white/50">return</span>{" "}
-                  <span className="text-[#98D982]">Deploy</span>
-                  <span className="text-white/50">.</span>build(site)
-                </div>
-              </div>
-            </div>
-
-            {/* Connecting Line Bottom */}
-            <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-0.5 h-16 bg-white/20" />
-
-            {/* Bottom Cubes */}
-            <div
-              ref={cubesBottomRef}
-              className="absolute bottom-0 left-0 right-0 grid grid-cols-2 gap-4"
-            >
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="relative w-16 h-16 md:w-20 md:h-20"
-                  style={{
-                    transform: "rotateX(45deg) rotateY(-45deg)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/30 to-[#98D982]/30 border border-white/30"
-                    style={{
-                      transform: "translateZ(20px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/20 to-[#98D982]/20 border border-white/20"
-                    style={{
-                      transform: "rotateY(90deg) translateZ(20px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/25 to-[#98D982]/25 border border-white/30"
-                    style={{
-                      transform: "rotateX(90deg) translateZ(20px)",
-                    }}
-                  />
-                </div>
-              ))}
+              <img
+                src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=1200&h=800&fit=crop&q=80"
+                alt="Abstract modern design"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
           {/* Right Side - Text Content */}
           <div ref={rightRef} className="space-y-8">
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-tight mb-6 text-white">
-                Development and deployment without managing infrastructure
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-tight mb-6 text-black">
+                We help our clients shine online
               </h2>
               <Button
-                className="rounded-full px-6 py-3 text-sm bg-white/10 border border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+                onClick={onOpenModal}
+                className="rounded-full px-6 py-3 text-sm bg-black text-white hover:bg-black/90 backdrop-blur-sm transition-transform hover:scale-105"
               >
-                View Examples
+                Get Started
               </Button>
             </div>
 
             <div className="space-y-6">
               {features.map((feature, index) => (
                 <div key={index} className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#98D982]/20 border border-[#98D982]/30 flex items-center justify-center text-[#98D982]">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-black/10 border border-black/20 flex items-center justify-center text-black">
                     {feature.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-white mb-2">
+                    <h3 className="text-lg font-medium text-black mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-white/80 text-sm leading-relaxed">
+                    <p className="text-black/70 text-sm leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -346,5 +220,6 @@ export default function FeaturesSection() {
     </section>
   );
 }
+
 
 

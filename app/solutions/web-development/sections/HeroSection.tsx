@@ -51,59 +51,46 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
     <>
       <section
         ref={heroRef}
-        className="relative bg-[#5C4F42] px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden"
+        className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden"
       >
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div ref={contentRef} className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-white font-normal">
-                Website care that feels as composed
+              <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-black font-normal">
+                Custom web development
                 <br />
-                as a gallery piece.
+                that drives results.
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-2xl">
-                Aelio keeps your site secure, fast, and flawlessly up to date—so
-                you can focus on the work only you can do, while we quietly
-                maintain the stage you perform on.
+              <p className="text-lg md:text-xl text-black/80 mb-8 leading-relaxed max-w-2xl">
+                We design and build custom websites, web apps, and digital experiences that resonate with your audience. No templates, no generic themes—everything is tailored to your brand and business goals.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
                 <Button
                   onClick={onOpenModal}
-                  className="rounded-full px-8 py-5 text-sm md:text-base shadow-[0_18px_60px_rgba(0,0,0,0.25)] hover:shadow-[0_22px_70px_rgba(0,0,0,0.35)] bg-[#E6672E] text-white hover:bg-[#D45A1F] transition-transform hover:scale-105"
+                  className="rounded-full px-8 py-5 text-sm md:text-base shadow-[0_18px_60px_rgba(0,0,0,0.15)] hover:shadow-[0_22px_70px_rgba(0,0,0,0.25)] bg-black text-white hover:bg-black/90 transition-transform hover:scale-105"
                 >
-                  Book a maintenance consult
+                  Start Your Project
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="rounded-full border-white/20 bg-white/10 backdrop-blur-sm text-xs md:text-sm px-6 py-4 hover:bg-white/20 text-white transition-transform hover:scale-105"
+                  className="rounded-full border-black/20 bg-white/50 backdrop-blur-sm text-xs md:text-sm px-6 py-4 hover:bg-white/80 text-black transition-transform hover:scale-105"
                 >
-                  <Link href="#process">See how our process works</Link>
+                  <Link href="#process">See our process</Link>
                 </Button>
               </div>
             </div>
-            {/* Photo spot */}
+            {/* Hero Image */}
             <div
               ref={photoRef}
-              className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] bg-white/5 border-2 border-dashed border-white/20 rounded-lg flex items-center justify-center"
+              className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl"
             >
-              <div className="text-center">
-                <svg
-                  className="w-16 h-16 mx-auto mb-4 text-white/30"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <p className="text-white/50 text-sm">Hero Image</p>
-              </div>
+              <img
+                src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1200&h=800&fit=crop&q=80"
+                alt="Modern design workspace"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

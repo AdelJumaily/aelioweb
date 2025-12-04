@@ -46,12 +46,12 @@ export default function WebDevelopmentPage() {
   }, []);
 
   return (
-    <main className="bg-[#5C4F42] text-white min-h-screen">
+    <main className="bg-[#f5f1e8] min-h-screen">
       <Navbar />
       <HeroSection onOpenModal={() => setIsModalOpen(true)} />
-      <MaintenanceSection />
+      <FeaturesSection onOpenModal={() => setIsModalOpen(true)} />
       <ProcessSection />
-      <FeaturesSection />
+      <MaintenanceSection />
       <CTASection onOpenModal={() => setIsModalOpen(true)} />
       <div ref={footerRef}>
         <Footer />

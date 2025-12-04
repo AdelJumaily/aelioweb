@@ -77,25 +77,6 @@ const CardSwap: React.FC<CardSwapProps> = ({
   easing = 'elastic',
   children
 }) => {
-  const config =
-    easing === 'elastic'
-      ? {
-          ease: 'elastic.out(0.6,0.9)',
-          durDrop: 2,
-          durMove: 2,
-          durReturn: 2,
-          promoteOverlap: 0.9,
-          returnDelay: 0.05
-        }
-      : {
-          ease: 'power1.inOut',
-          durDrop: 0.8,
-          durMove: 0.8,
-          durReturn: 0.8,
-          promoteOverlap: 0.45,
-          returnDelay: 0.2
-        };
-
   const childArr = useMemo(() => Children.toArray(children) as ReactElement<CardProps>[], [children]);
   const refs = useMemo<CardRef[]>(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
   const order = useRef<number[]>(Array.from({ length: childArr.length }, (_, i) => i));
@@ -105,6 +86,24 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
   useEffect(() => {
     const total = refs.length;
+    const currentConfig = easing === 'elastic'
+      ? {
+          ease: 'elastic.out(0.6,0.9)',
+          durDrop: 0.6,
+          durMove: 0.6,
+          durReturn: 0.6,
+          promoteOverlap: 0.9,
+          returnDelay: 0.05
+        }
+      : {
+          ease: 'power2.inOut',
+          durDrop: 0.5,
+          durMove: 0.5,
+          durReturn: 0.5,
+          promoteOverlap: 0.45,
+          returnDelay: 0.1
+        };
+
     refs.forEach((r, i) => placeNow(r.current!, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
 
     const swap = () => {
@@ -117,11 +116,11 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
       tl.to(elFront, {
         y: '+=500',
-        duration: config.durDrop,
-        ease: config.ease
+        duration: currentConfig.durDrop,
+        ease: currentConfig.ease
       });
 
-      tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+      tl.addLabel('promote', `-=${currentConfig.durDrop * currentConfig.promoteOverlap}`);
 
       rest.forEach((idx, i) => {
         const el = refs[idx].current!;
@@ -133,15 +132,15 @@ const CardSwap: React.FC<CardSwapProps> = ({
             x: slot.x,
             y: slot.y,
             z: slot.z,
-            duration: config.durMove,
-            ease: config.ease
+            duration: currentConfig.durMove,
+            ease: currentConfig.ease
           },
           `promote+=${i * 0.15}`
         );
       });
 
       const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
-      tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
+      tl.addLabel('return', `promote+=${currentConfig.durMove * currentConfig.returnDelay}`);
 
       tl.call(
         () => {
@@ -157,8 +156,8 @@ const CardSwap: React.FC<CardSwapProps> = ({
           x: backSlot.x,
           y: backSlot.y,
           z: backSlot.z,
-          duration: config.durReturn,
-          ease: config.ease
+          duration: currentConfig.durReturn,
+          ease: currentConfig.ease
         },
         'return'
       );
@@ -191,7 +190,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, refs, config]);
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, refs.length]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)
@@ -215,5 +214,6 @@ const CardSwap: React.FC<CardSwapProps> = ({
 };
 
 export default CardSwap;
+
 
 

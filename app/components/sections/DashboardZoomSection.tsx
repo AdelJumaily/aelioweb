@@ -34,7 +34,8 @@ export default function DashboardZoomSection({
   );
 
   // Optional: background behind dashboard fades in a bit
-  const bgTint = useTransform(scrollYProgress, [0, 0.7], [0, 0.12]);
+  const bgTintOpacity = useTransform(scrollYProgress, [0, 0.7], [0, 0.12]);
+  const bgTint = useTransform(bgTintOpacity, (v) => `rgba(0,0,0,${v})`);
 
   return (
     <section
@@ -44,7 +45,7 @@ export default function DashboardZoomSection({
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         {/* page background tint that appears as we zoom out */}
         <motion.div
-          style={{ backgroundColor: bgTint.to((v) => `rgba(0,0,0,${v})`) }}
+          style={{ backgroundColor: bgTint }}
           className="absolute inset-0 pointer-events-none"
         />
 
@@ -112,4 +113,5 @@ export default function DashboardZoomSection({
     </section>
   );
 }
+
 

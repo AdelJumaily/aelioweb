@@ -1,9 +1,9 @@
 .card-swap-container {
   position: absolute;
   bottom: 0;
-  left: 0;
-  transform: translate(0%, 0%);
-  transform-origin: bottom left;
+  right: 0;
+  transform: translate(5%, 20%);
+  transform-origin: bottom right;
   perspective: 900px;
   overflow: visible;
 }
@@ -13,8 +13,8 @@
   top: 50%;
   left: 50%;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #2a2a2a;
+  border: 1px solid #fff;
+  background: #000;
   transform-style: preserve-3d;
   will-change: transform;
   backface-visibility: hidden;

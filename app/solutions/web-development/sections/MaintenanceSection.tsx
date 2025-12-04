@@ -10,10 +10,10 @@ if (typeof window !== "undefined") {
 }
 
 const factBoxes = [
-  { text: "Founded in 2022", isOrange: true },
-  { text: "Headquartered in Europe", isOrange: false },
-  { text: "Platform-first, people-focused", isOrange: false },
-  { text: "Built for the real world", isOrange: false },
+  { text: "Custom solutions only", isHighlight: true },
+  { text: "3-5 week delivery", isHighlight: false },
+  { text: "Ongoing support available", isHighlight: false },
+  { text: "Performance focused", isHighlight: false },
 ];
 
 export default function MaintenanceSection() {
@@ -132,72 +132,50 @@ export default function MaintenanceSection() {
   return (
     <section
       ref={contentRef}
-      className="relative bg-[#5C4F42] text-white px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
+      className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32 overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto">
         {/* Large Headline */}
         <h2
           ref={headlineRef}
-          className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight mb-12 md:mb-16 text-white max-w-5xl"
+          className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight mb-12 md:mb-16 text-black max-w-5xl"
         >
-          Aelio was built for the complex, disconnected reality of modern web
-          development— and for the people doing their best to manage it.
+          We translate research into solutions
         </h2>
 
         {/* Two Column Text Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
           {/* Left Column */}
           <div ref={leftColRef} className="space-y-6">
-            <p className="text-base md:text-lg leading-relaxed text-white">
-              Founded in 2022, Aelio came out of a simple but frustrating
-              pattern: web platforms were either too rigid to adapt or too
-              light to scale. Developers, designers, and business owners were
-              stuck between workarounds and chaos — with no solution designed to
-              handle the way real decisions happen.
+            <p className="text-base md:text-lg leading-relaxed text-black/80">
+              We offer a complete process from discovery, branding, design, launch to post-launch optimization and testing. Every project starts with understanding your business, your audience, and your goals.
             </p>
-            <p className="text-base md:text-lg leading-relaxed text-white">
-              We believed there had to be a better way: one that could connect
-              strategy to execution, planning to action, and people to outcomes —
-              without ripping out what teams already use.
+            <p className="text-base md:text-lg leading-relaxed text-black/80">
+              From startups to established enterprises, we work with brands that care about every pixel, every interaction, and every moment of their customer&apos;s journey.
             </p>
           </div>
 
           {/* Right Column */}
           <div ref={rightColRef} className="space-y-6">
-            <p className="text-base md:text-lg leading-relaxed text-white">
-              Today, Aelio helps businesses around the world reduce friction,
-              fix misalignment, and make smarter web decisions with less effort.
-              Our product evolves with the market — because it was designed to.
+            <p className="text-base md:text-lg leading-relaxed text-black/80">
+              We don&apos;t just build websites—we craft complete brand experiences that resonate, convert, and elevate your business across every touchpoint.
             </p>
-            <p className="text-base md:text-lg leading-relaxed text-white">
-              We&apos;re here to make complex problems easier to manage, not
-              more complicated to understand. That&apos;s our philosophy.
-              That&apos;s the product.
+            <p className="text-base md:text-lg leading-relaxed text-black/80">
+              Excellence: We strive for perfection in every project. Innovation: We embrace new technologies and creative solutions. Partnership: We build long-term relationships with our clients.
             </p>
           </div>
         </div>
 
-        {/* Photo spot */}
+        {/* Content Image */}
         <div
           ref={photoRef}
-          className="relative w-full h-[250px] md:h-[350px] bg-white/5 border-2 border-dashed border-white/20 rounded-lg flex items-center justify-center mb-16 md:mb-20"
+          className="relative w-full h-[250px] md:h-[350px] rounded-3xl overflow-hidden shadow-2xl mb-16 md:mb-20"
         >
-          <div className="text-center">
-            <svg
-              className="w-16 h-16 mx-auto mb-4 text-white/30"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <p className="text-white/50 text-sm">Content Image</p>
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1557682268-e3955ed5d83f?w=1200&h=600&fit=crop&q=80"
+            alt="Modern creative space"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Four Fact Boxes */}
@@ -209,12 +187,12 @@ export default function MaintenanceSection() {
             <div
               key={index}
               className={`rounded-lg p-6 text-center transition-transform hover:scale-105 ${
-                box.isOrange
-                  ? "bg-[#E6672E]"
-                  : "bg-[#5C4F42] border border-white/10"
+                box.isHighlight
+                  ? "bg-black text-white"
+                  : "bg-white/50 border border-black/10 text-black"
               }`}
             >
-              <p className="text-white text-sm md:text-base font-medium">
+              <p className="text-sm md:text-base font-medium">
                 {box.text}
               </p>
             </div>

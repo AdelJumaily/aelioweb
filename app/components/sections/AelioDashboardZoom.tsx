@@ -25,9 +25,10 @@ export default function AelioDashboardZoom() {
   // 0.0 - 0.2: Video full screen with text overlay
   // 0.2 - 0.35: Video morphs into small player inside dashboard
   // 0.35 - 0.5: Dashboard zooms out to show full view
-  // 0.5 - 0.7: CTA text appears
-  // 0.7 - 0.85: Transform dashboard → phone
-  // 0.85 - 1.0: Mobile apps message
+  // 0.5 - 0.65: CTA text appears
+  // 0.65 - 0.75: Transform dashboard → phone
+  // 0.75 - 0.95: Phone sticks (visible and stable)
+  // 0.85 - 1.0: Mobile apps message appears
 
   // Video URL
   const videoUrl = "https://www.youtube.com/watch?v=FET1XkLeeUs";
@@ -81,24 +82,24 @@ export default function AelioDashboardZoom() {
   // STAGE 3: Dashboard zoom out (0.35 → 0.5)
   const dashboardZoomScale = useTransform(scrollYProgress, [0.35, 0.5], [1.2, 0.8]);
   
-  // STAGE 4: CTA text (0.5 → 0.7)
-  const ctaOpacity = useTransform(scrollYProgress, [0.5, 0.57, 0.63, 0.7], [0, 1, 1, 0]);
-  const ctaY = useTransform(scrollYProgress, [0.5, 0.63], [40, 0]);
+  // STAGE 4: CTA text (0.5 → 0.65)
+  const ctaOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.6, 0.65], [0, 1, 1, 0]);
+  const ctaY = useTransform(scrollYProgress, [0.5, 0.6], [40, 0]);
 
-  // STAGE 5: Dashboard → Phone transformation (0.7 → 0.85)
+  // STAGE 5: Dashboard → Phone transformation (0.65 → 0.75)
   const containerScale = useTransform(scrollYProgress, (progress) => {
     if (progress < 0.35) {
       return 1.2; // Start zoomed in
     } else if (progress < 0.5) {
       const t = (progress - 0.35) / (0.5 - 0.35);
       return 1.2 - t * (1.2 - 0.8); // Zoom out
-    } else if (progress < 0.7) {
+    } else if (progress < 0.65) {
       return 0.8; // Stay at dashboard size
-    } else if (progress < 0.85) {
-      const t = (progress - 0.7) / (0.85 - 0.7);
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
       return 0.8 + t * (1.1 - 0.8); // Zoom in for phone
     }
-    return 1.1;
+    return 1.1; // Phone stays at this scale (0.75 → 1.0)
   });
 
   const containerY = useTransform(scrollYProgress, (progress) => {
@@ -107,42 +108,42 @@ export default function AelioDashboardZoom() {
     } else if (progress < 0.5) {
       const t = (progress - 0.35) / (0.5 - 0.35);
       return t * 80; // Move down as dashboard zooms out
-    } else if (progress < 0.7) {
+    } else if (progress < 0.65) {
       return 80; // Stay at dashboard position
-    } else if (progress < 0.85) {
-      const t = (progress - 0.7) / (0.85 - 0.7);
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
       return 80 - t * 80; // Move up for phone
     }
-    return 0;
+    return 0; // Phone stays centered (0.75 → 1.0)
   });
 
   // Width transition: dashboard width → phone width
   const containerWidth = useTransform(scrollYProgress, (progress) => {
-    if (progress < 0.7) {
-      return "min(1060px, 92vw)";
-    } else if (progress < 0.85) {
-      const t = (progress - 0.7) / (0.85 - 0.7);
+    if (progress < 0.65) {
+      return "min(1060px, 95vw)";
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
       // Smoothly transition from dashboard to phone width
       const startWidth = 1060;
       const endWidth = 320;
       const width = startWidth - t * (startWidth - endWidth);
       return `${width}px`;
     }
-    return "320px";
+    return "min(320px, 85vw)"; // Phone stays at this width (0.75 → 1.0), responsive
   });
 
   // Height transition
   const containerHeight = useTransform(scrollYProgress, (progress) => {
-    if (progress < 0.7) {
+    if (progress < 0.65) {
       return "72vh";
-    } else if (progress < 0.85) {
-      const t = (progress - 0.7) / (0.85 - 0.7);
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
       const startHeight = 72;
       const endHeight = 70;
       const height = startHeight - t * (startHeight - endHeight);
       return `${height}vh`;
     }
-    return "70vh";
+    return "70vh"; // Phone stays at this height (0.75 → 1.0)
   });
 
   // Border radius transition (returns number)
@@ -152,13 +153,13 @@ export default function AelioDashboardZoom() {
     } else if (progress < 0.5) {
       const t = (progress - 0.35) / (0.5 - 0.35);
       return t * 24; // Add radius as dashboard appears
-    } else if (progress < 0.7) {
+    } else if (progress < 0.65) {
       return 24; // Dashboard radius
-    } else if (progress < 0.85) {
-      const t = (progress - 0.7) / (0.85 - 0.7);
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
       return 24 + t * (40 - 24); // Increase for phone
     }
-    return 40;
+    return 40; // Phone stays at this radius (0.75 → 1.0)
   });
 
   // Convert to CSS string with px unit
@@ -170,10 +171,13 @@ export default function AelioDashboardZoom() {
     } else if (progress < 0.5) {
       const t = (progress - 0.35) / (0.5 - 0.35);
       return `0 ${25 * t}px ${60 * t}px rgba(0,0,0,${0.3 * t})`;
-    } else if (progress < 0.7) {
+    } else if (progress < 0.65) {
       return "0 25px 60px rgba(0,0,0,0.3)";
+    } else if (progress < 0.75) {
+      const t = (progress - 0.65) / (0.75 - 0.65);
+      return `0 ${25 + t * 5}px ${60 + t * 20}px rgba(0,0,0,${0.3 + t * 0.2})`;
     }
-    return "0 30px 80px rgba(0,0,0,0.5)";
+    return "0 30px 80px rgba(0,0,0,0.5)"; // Phone shadow stays (0.75 → 1.0)
   });
   
   // Dashboard opacity - appears as video morphs
@@ -183,12 +187,12 @@ export default function AelioDashboardZoom() {
   const dashboardVideoPlayerOpacity = useTransform(scrollYProgress, [0.33, 0.35], [0, 1]);
   
   // Dashboard fades out, phone UI fades in
-  const dashboardFadeOut = useTransform(scrollYProgress, [0.7, 0.8], [1, 0]);
-  const phoneOpacity = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
+  const dashboardFadeOut = useTransform(scrollYProgress, [0.65, 0.72], [1, 0]);
+  const phoneOpacity = useTransform(scrollYProgress, [0.65, 0.72], [0, 1]);
 
-  // STAGE 6: Mobile apps message (0.85 → 1.0)
-  const mobileMessageOpacity = useTransform(scrollYProgress, [0.85, 0.93], [0, 1]);
-  const mobileMessageY = useTransform(scrollYProgress, [0.85, 0.93], [30, 0]);
+  // STAGE 6: Mobile apps message (appears after phone is stable, 0.85 → 1.0)
+  const mobileMessageOpacity = useTransform(scrollYProgress, [0.85, 0.9, 0.98, 1.0], [0, 1, 1, 1]);
+  const mobileMessageY = useTransform(scrollYProgress, [0.85, 0.9], [30, 0]);
 
   // Background tint - convert number to rgba string
   const bgTintOpacity = useTransform(scrollYProgress, [0, 0.2], [0.15, 0.03]);
@@ -197,7 +201,7 @@ export default function AelioDashboardZoom() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[350vh] bg-[#d8d1c5]"
+      className="relative h-[500vh] bg-[#d8d1c5]"
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -230,19 +234,19 @@ export default function AelioDashboardZoom() {
 
             {/* Hero text overlay */}
             <motion.div
-              className="absolute left-12 md:left-20 top-1/2 -translate-y-1/2 z-10 max-w-2xl"
+              className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 z-10 max-w-[90%] md:max-w-2xl px-4 md:px-0"
               style={{ 
                 opacity: heroTextOpacity,
                 y: heroTextY,
               }}
             >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 leading-tight">
                 We create worlds that feel alive.
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-4">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-3 md:mb-4 leading-relaxed">
                 Then we turn them into products your customers actually use.
               </p>
-              <div className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm inline-block">
+              <div className="px-3 py-1.5 md:px-4 md:py-2 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs md:text-sm inline-block">
                 Aelio Studio · Web & App Experiences
               </div>
             </motion.div>
@@ -391,44 +395,44 @@ export default function AelioDashboardZoom() {
           </motion.div>
         </motion.div>
 
-        {/* STAGE 2: CTA Text */}
+        {/* STAGE 2: CTA Text - Positioned on left side to not cover dashboard */}
         <motion.div
           style={{
             opacity: ctaOpacity,
             y: ctaY,
           }}
-          className="absolute bottom-32 left-0 right-0 flex flex-col items-center gap-4 px-6 z-20 pointer-events-none"
+          className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 flex flex-col gap-3 md:gap-4 px-4 md:px-6 z-20 pointer-events-none max-w-[90%] md:max-w-xl"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight">
             We Build Digital Experiences
           </h2>
-          <p className="text-lg md:text-xl text-black/70 text-center max-w-2xl">
+          <p className="text-base sm:text-lg md:text-xl text-black/70 leading-relaxed">
             From stunning websites to powerful web applications, we craft solutions that drive results
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-4 px-8 py-3 bg-black text-white rounded-full font-semibold text-lg pointer-events-auto"
+            className="mt-2 md:mt-4 px-6 py-2.5 md:px-8 md:py-3 bg-black text-white rounded-full font-semibold text-sm md:text-lg pointer-events-auto w-fit"
           >
             Start Your Project
           </motion.button>
         </motion.div>
 
-        {/* STAGE 4: Mobile Apps Message */}
+        {/* STAGE 4: Mobile Apps Message - Positioned on left side to not cover phone */}
         <motion.div
           style={{
             opacity: mobileMessageOpacity,
             y: mobileMessageY,
           }}
-          className="absolute bottom-32 left-0 right-0 flex flex-col items-center gap-4 px-6 z-20 pointer-events-none"
+          className="absolute left-4 md:left-12 lg:left-20 top-1/2 -translate-y-1/2 flex flex-col gap-3 md:gap-4 px-4 md:px-6 z-20 pointer-events-none max-w-[90%] md:max-w-xl"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight">
             We Don't Just Make Websites
           </h2>
-          <p className="text-2xl md:text-3xl text-black/80 text-center max-w-3xl font-medium">
+          <p className="text-lg sm:text-xl md:text-2xl text-black/80 font-medium">
             We build mobile apps too
           </p>
-          <p className="text-lg md:text-xl text-black/60 text-center max-w-2xl mt-2">
+          <p className="text-sm sm:text-base md:text-lg text-black/60 leading-relaxed">
             Native iOS and Android apps that deliver seamless experiences across all devices
           </p>
         </motion.div>
