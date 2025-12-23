@@ -1,49 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  /* Base background / foreground from palette */
-  --background: #0d0106; /* Coffee Bean */
-  --foreground: #fbfbff; /* Ghost White */
+  /* Aelio Design System - Roman/Greek Art Inspired */
+  --background: #F5F1E8;
+  --background-secondary: #E8E0D0;
+  --foreground: #2C1810;
+  --foreground-secondary: #6B6B6B;
+  
+  /* Accent Colors - Gold/Classical */
+  --accent: #D4AF37;
+  --accent-hover: #B8860B;
+  
+  /* Borders */
+  --border-subtle: rgba(44, 24, 16, 0.1);
+  --border-strong: rgba(44, 24, 16, 0.2);
+  
+  /* Card */
+  --card-background: #FFFFFF;
+  
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
 
-  /* Brand palette */
-  --brand-deep: #0d0106;
-  --brand-primary: #3626a7; /* Vivid Royal */
-  --brand-primary-soft: #657ed4; /* Glaucous */
-  --brand-accent: #ff331f; /* Scarlet Fire */
-  --brand-light: #fbfbff; /* Ghost White */
+/* 3D Perspective */
+.perspective-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
 
-  /* Semantic tokens */
-  --primary: var(--brand-primary);
-  --primary-hover: #2b1f87;
-  --secondary: var(--brand-primary-soft);
-  --secondary-hover: #4f66b1;
-  --accent: var(--brand-accent);
-  --accent-hover: #e62d1c;
-
-  /* Neutral scale tuned around the dark background */
-  --gray-50: #f5f5f7;
-  --gray-100: #e5e7eb;
-  --gray-200: #d1d5db;
-  --gray-300: #9ca3af;
-  --gray-400: #6b7280;
-  --gray-500: #4b5563;
-  --gray-600: #374151;
-  --gray-700: #1f2937;
-  --gray-800: #111827;
-  --gray-900: #05040a;
+/* Radial Gradient Utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 }
 
 @keyframes scroll {
   to {
     transform: translate(calc(-50% - 0.5rem));
+  }
+}
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
   }
 }
 
@@ -81,6 +96,24 @@
   opacity: 0;
 }
 
+/* Rain fall animation for hero streaks */
+@keyframes rainFall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #05040a;
@@ -96,16 +129,18 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), 'SF Pro Display', -apple-system, system-ui, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headers use Times New Roman */
+/* Headers use Inter with tight letter spacing */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-sans), 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 /* Smooth scrolling for all elements */
@@ -119,24 +154,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--brand-primary-soft);
+  background: var(--foreground-secondary);
   border-radius: 5px;
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-  opacity: 0.9;
+  background: var(--foreground-secondary);
+  opacity: 0.5;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--brand-primary-soft) var(--brand-deep);
+  scrollbar-color: var(--foreground-secondary) var(--background);
 }
 
 /* Hero Section Animations */
@@ -666,4 +701,26 @@ canvas + div[style*="position"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+}
+
+/* Hide Spline components on main page */
+main canvas,
+main iframe[src*="spline"],
+main [class*="spline"],
+main canvas[style*="position"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

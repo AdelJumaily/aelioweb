@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Navbar from "../../components/layout/Navbar";
 import ContactModal from "../../components/forms/ContactModal";
 import Link from "next/link";
 import { solutionsData } from "@/lib/solutions-data";

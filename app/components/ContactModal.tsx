@@ -329,10 +329,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       key={budget}
                       type="button"
                       onClick={() => handleBudgetSelect(budget)}
-                      className={`px-6 py-3 rounded-lg text-lg font-medium transition-all ${
+                      className={`px-6 py-3 rounded-lg text-lg font-medium transition-all border-2 ${
                         formData.budget === budget
-                          ? "bg-white text-black"
-                          : "bg-gray-800/50 text-white hover:bg-gray-700/50"
+                          ? "bg-white text-black border-white"
+                          : "bg-gray-900/80 text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600"
                       }`}
                     >
                       {budget}
@@ -367,10 +367,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       key={service}
                       type="button"
                       onClick={() => handleServiceToggle(service)}
-                      className={`px-6 py-3 rounded-lg text-lg font-medium transition-all ${
+                      className={`px-6 py-3 rounded-lg text-lg font-medium transition-all border-2 ${
                         formData.services.includes(service)
-                          ? "bg-white text-black"
-                          : "bg-gray-800/50 text-white hover:bg-gray-700/50"
+                          ? "bg-white text-black border-white"
+                          : "bg-gray-900/80 text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600"
                       }`}
                     >
                       {service}
@@ -460,10 +460,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         key={time}
                         type="button"
                         onClick={() => setFormData({ ...formData, selectedTime: time })}
-                        className={`px-6 py-3 rounded-lg text-lg font-medium transition-all ${
+                        className={`px-6 py-3 rounded-lg text-lg font-medium transition-all border-2 ${
                           formData.selectedTime === time
-                            ? "bg-white text-black"
-                            : "bg-gray-800/50 text-white hover:bg-gray-700/50"
+                            ? "bg-white text-black border-white"
+                            : "bg-gray-900/80 text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600"
                         }`}
                       >
                         {time}

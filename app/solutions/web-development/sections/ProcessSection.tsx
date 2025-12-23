@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CardSwap, { Card } from "../../../components/CardSwap";
+import CardSwap, { Card } from "../../../components/animations/CardSwap";
 import GradualBlur from "../../../components/animations/GradualBlur";
 
 if (typeof window !== "undefined") {

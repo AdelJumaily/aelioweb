@@ -1,33 +1,42 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import NavbarWrapper from "./components/layout/NavbarWrapper";
+import SiteFooter from "./components/layout/SiteFooter";
 import "./globals.css";
-import SmoothScroll from "./components/animations/SmoothScroll";
 
 const inter = Inter({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Aelio Studio | Custom Web & App Development",
-  description: "We design and build custom websites, web apps, and mobile apps. From stunning websites to powerful applications, we craft solutions that drive results. No templates, no generic themes—everything is tailored to your brand.",
-  keywords: ["web development", "app development", "custom websites", "web design", "mobile apps", "UI/UX design", "digital agency"],
-  authors: [{ name: "Aelio Studio" }],
+  title: "Aelio | High-Performance Websites Built to Elevate Your Brand",
+  description: "Design-forward. Performance-first. We craft blazing-fast websites using Next.js, modern design systems, and conversion-focused UX. Your site will load in under 2 seconds and turn visitors into customers.",
+  keywords: ["web development", "web design", "Next.js", "React", "TypeScript", "digital agency", "website design", "performance"],
+  authors: [{ name: "Aelio" }],
   openGraph: {
-    title: "Aelio Studio | Custom Web & App Development",
-    description: "We design and build custom websites, web apps, and mobile apps. From stunning websites to powerful applications, we craft solutions that drive results.",
+    title: "Aelio | High-Performance Websites",
+    description: "Design-forward. Performance-first. We craft blazing-fast websites that convert.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aelio Studio | Custom Web & App Development",
-    description: "We design and build custom websites, web apps, and mobile apps.",
+    title: "Aelio | High-Performance Websites",
+    description: "Design-forward. Performance-first.",
   },
   robots: {
     index: true,
@@ -47,13 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-      >
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
+      <body className="antialiased font-sans">
+        <NavbarWrapper />
+        {children}
+        <SiteFooter />
       </body>
     </html>
   );

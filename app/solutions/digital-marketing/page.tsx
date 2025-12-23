@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -62,8 +60,6 @@ export default function DigitalMarketingPage() {
 
   return (
     <main className="bg-[#f5f1e8] min-h-screen">
-      <Navbar />
-
       {/* Coming Soon Section */}
       <section ref={heroRef} className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32 min-h-[80vh] flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
@@ -77,10 +73,6 @@ export default function DigitalMarketingPage() {
           </p>
         </div>
       </section>
-
-      <div ref={footerRef}>
-        <Footer />
-      </div>
     </main>
   );
 }

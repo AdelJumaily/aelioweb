@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
 import ContactModal from "../../components/forms/ContactModal";
 import HeroSection from "./sections/HeroSection";
 import MaintenanceSection from "./sections/MaintenanceSection";
@@ -47,15 +45,11 @@ export default function WebDevelopmentPage() {
 
   return (
     <main className="bg-[#f5f1e8] min-h-screen">
-      <Navbar />
       <HeroSection onOpenModal={() => setIsModalOpen(true)} />
       <FeaturesSection onOpenModal={() => setIsModalOpen(true)} />
       <ProcessSection />
       <MaintenanceSection />
       <CTASection onOpenModal={() => setIsModalOpen(true)} />
-      <div ref={footerRef}>
-        <Footer />
-      </div>
       <ContactModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
