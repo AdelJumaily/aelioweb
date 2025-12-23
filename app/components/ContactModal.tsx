@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
-import Calendar from "./Calendar";
+import Calendar from "./forms/Calendar";
 
 interface ContactModalProps {
   isOpen: boolean;
