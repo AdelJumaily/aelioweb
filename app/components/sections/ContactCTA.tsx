@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import Image from "next/image";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +14,8 @@ export default function ContactCTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
-  const buttonsRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,14 +44,26 @@ export default function ContactCTA() {
         ease: "power3.out",
       });
 
-      gsap.from(buttonsRef.current?.children || [], {
+      gsap.from(buttonRef.current, {
         opacity: 0,
         y: 20,
         duration: 0.6,
         delay: 0.2,
-        stagger: 0.1,
         scrollTrigger: {
-          trigger: buttonsRef.current,
+          trigger: buttonRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+        ease: "power3.out",
+      });
+
+      gsap.from(imageRef.current, {
+        opacity: 0,
+        scale: 1.05,
+        duration: 1.2,
+        delay: 0.3,
+        scrollTrigger: {
+          trigger: imageRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
         },
@@ -63,36 +77,46 @@ export default function ContactCTA() {
   return (
     <section 
       ref={sectionRef} 
-      className="py-40 px-6 md:px-10 bg-[#FF5722] text-white"
+      className="relative py-32 md:py-40 px-6 md:px-10 bg-[#F5F5F0] overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto text-center">
+      {/* Background Image with Fade */}
+      <div 
+        ref={imageRef}
+        className="absolute inset-0 w-full h-full"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F0] via-[#F5F5F0]/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F5F5F0] via-[#F5F5F0]/60 to-transparent z-10" />
+        <Image
+          src="/cta.jpg"
+          alt="CTA Visual"
+          fill
+          className="object-cover object-center"
+          priority
+          quality={90}
+        />
+      </div>
+
+      {/* Content Overlay */}
+      <div className="relative z-20 max-w-4xl mx-auto text-center">
         <h2
           ref={headingRef}
-          className="text-[clamp(2.5rem,5vw,4rem)] font-bold mb-6"
+          className="text-[clamp(3rem,6vw,5rem)] font-normal mb-6 text-[#0A0A0A] leading-tight"
         >
           Ready to Build Something Exceptional?
         </h2>
         <p
           ref={textRef}
-          className="text-xl opacity-90 mb-10"
+          className="text-xl md:text-2xl text-[#0A0A0A]/80 mb-10 max-w-2xl mx-auto leading-relaxed"
         >
           Let&apos;s discuss your project and see how we can help you grow.
         </p>
-        <div
-          ref={buttonsRef}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
+        <div className="flex justify-center">
           <Link
+            ref={buttonRef}
             href="/contact"
-            className="px-8 py-4 bg-white text-[#0A0A0A] rounded-lg font-medium hover:bg-[#FAFAF8] transition-colors"
+            className="px-10 py-4 bg-[#0A0A0A] text-white rounded-lg font-normal text-lg hover:bg-[#0A0A0A]/90 transition-colors inline-block"
           >
-            Start a Project
-          </Link>
-          <Link
-            href="/services"
-            className="px-8 py-4 border-2 border-white text-white rounded-lg font-medium hover:bg-white/10 transition-colors"
-          >
-            View Services
+            Get started
           </Link>
         </div>
       </div>

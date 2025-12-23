@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Bebas_Neue, Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import NavbarWrapper from "./components/layout/NavbarWrapper";
 import SiteFooter from "./components/layout/SiteFooter";
 import "./globals.css";
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const inter = Inter({
   variable: "--font-sans",
@@ -56,8 +63,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
-      <body className="antialiased font-sans">
+    <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
+      <body className="antialiased font-bebas">
         <NavbarWrapper />
         {children}
         <SiteFooter />
