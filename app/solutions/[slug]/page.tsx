@@ -151,7 +151,6 @@ export default function SolutionDetailPage() {
   if (!solution) {
     return (
       <main className="bg-[#f5f1e8] min-h-screen">
-        <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <h1 className="shadow-headline text-4xl mb-4">Solution Not Found</h1>
@@ -166,7 +165,6 @@ export default function SolutionDetailPage() {
 
   return (
     <main className="bg-[#f5f1e8] min-h-screen">
-      <Navbar />
 
       {/* Hero Section */}
       <section className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32">
