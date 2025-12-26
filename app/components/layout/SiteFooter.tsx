@@ -24,7 +24,7 @@ export default function SiteFooter() {
               <a href="#" className="text-white/60 hover:text-[#FF5722] transition-colors">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-white/60 hover:text-[#FF5722] transition-colors">
+              <a href="https://www.instagram.com/aelio.web/" className="text-white/60 hover:text-[#FF5722] transition-colors">
                 <Instagram size={20} />
               </a>
             </div>
@@ -82,13 +82,13 @@ export default function SiteFooter() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@aelio.com"
+                  href="mailto:contact@aelio.dev"
                   className="text-[15px] text-[#FF5722] hover:text-[#E64A19] transition-colors"
                 >
-                  hello@aelio.com
+                    contact@aelio.dev
                 </a>
               </li>
-              <li className="text-[15px] text-white/80">+1 (555) 123-4567</li>
+              <li className="text-[15px] text-white/80">+1 (571) 477-7222</li>
               <li className="text-[15px] text-white/80">Remote-First</li>
             </ul>
           </div>
@@ -96,7 +96,7 @@ export default function SiteFooter() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/60">
-            © 2024 Aelio. All rights reserved.
+            © 2025 Aelio. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/60">
             <Link href="/legal/privacy" className="hover:text-white transition-colors">

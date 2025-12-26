@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
 import {
   Zap,
   Code,
@@ -15,10 +12,6 @@ import {
   Palette,
 } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-[#FF5722]/15 via-[#FF5722]/8 to-transparent"></div>
@@ -86,63 +79,24 @@ const features: Feature[] = [
 ];
 
 export default function FeaturesShowcase() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current, {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-        ease: "power3.out",
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       className="py-20 px-6 md:px-10 bg-[#FAFAF8]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-block mb-3"
-          >
+          <div className="inline-block mb-3">
             <span className="px-4 py-2 bg-[#FF5722]/20 text-[#FF5722] rounded-full text-sm font-semibold uppercase tracking-wider">
               Features
             </span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-[#0A0A0A] mb-4"
-          >
+          </div>
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-[#0A0A0A] mb-4">
             Everything you need to succeed online
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-[#6B6B6B] max-w-2xl mx-auto"
-          >
+          </h2>
+          <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
             We build websites that don&apos;t just look good—they perform, convert, and scale with your business.
-          </motion.p>
+          </p>
         </div>
 
         {/* Bento Grid */}

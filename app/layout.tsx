@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import NavbarWrapper from "./components/layout/NavbarWrapper";
 import SiteFooter from "./components/layout/SiteFooter";
+import SmoothScroll from "./components/animations/SmoothScroll";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -65,9 +66,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}>
       <body className="antialiased font-bebas">
-        <NavbarWrapper />
-        {children}
-        <SiteFooter />
+        <SmoothScroll>
+          <NavbarWrapper />
+          {children}
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );
