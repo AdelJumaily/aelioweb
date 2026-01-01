@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export const metadata = {
   title: "About Aelio | Agency",
@@ -18,11 +19,14 @@ export default function AgencyPage() {
             </p>
           </div>
 
-          <div className="relative h-96 rounded-xl overflow-hidden mb-16 shadow-[0_8px_32px_rgba(0,0,0,0.08)] bg-gradient-to-br from-[#FF5722] to-[#E64A19]">
-            {/* Placeholder for team image */}
-            <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold">
-              Team Photo
-            </div>
+          <div className="relative h-96 rounded-xl overflow-hidden mb-16 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+            <Image
+              src="/APC_0218.JPG"
+              alt="Aelio Team"
+              fill
+              className="object-cover object-[50%_30%]"
+              priority
+            />
           </div>
 
           <div className="prose prose-lg max-w-none mb-16">
