@@ -51,16 +51,16 @@ export default function ContactPage() {
                 <div className="space-y-8 mb-12">
                   <div>
                     <a
-                      href="mailto:hello@aelio.com"
+                      href="mailto:contact@aelio.dev"
                       className="text-2xl font-bold text-[#FF5722] hover:text-[#E64A19] transition-colors inline-flex items-center gap-3"
                     >
                       <Mail size={24} />
-                      hello@aelio.com
+                      contact@aelio.dev
                     </a>
                   </div>
                   <div className="flex items-center gap-3 text-lg text-[#6B6B6B]">
                     <Phone size={20} />
-                    +1 (555) 123-4567
+                    (571) 477-7222
                   </div>
                   <div className="flex items-center gap-3 text-lg text-[#6B6B6B]">
                     <MapPin size={20} />

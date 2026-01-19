@@ -16,6 +16,50 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "potomac-family-dental",
+    title: "Potomac Family Dental",
+    summary: "Modern dental practice website designed to attract new patients and streamline appointment booking.",
+    services: ["Web Design", "Development"],
+    tags: ["Healthcare", "Next.js", "Medical"],
+    year: 2024,
+    thumbnail: "/images/webdesign.jpg",
+    heroImage: "/images/webdesign.jpg",
+    challenge: "Potomac Family Dental needed a modern, trustworthy website that would help them stand out in a competitive market and make it easy for patients to book appointments.",
+    solution: "Designed and developed a clean, professional website with integrated appointment booking, patient testimonials, and mobile-responsive design that reflects the practice's commitment to quality care.",
+    results: [
+      { label: "Appointment Bookings", value: "+150%" },
+      { label: "Page Speed", value: "1.1s" },
+      { label: "Mobile Traffic", value: "+120%" },
+    ],
+    gallery: [
+      "/images/webdesign.jpg",
+      "/images/dashboard.png",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    slug: "atoz-property-construction",
+    title: "AtoZ Property Construction",
+    summary: "Professional construction company website showcasing services and completed projects to attract new clients.",
+    services: ["Web Design", "Development"],
+    tags: ["Construction", "Next.js", "Business"],
+    year: 2024,
+    thumbnail: "/images/digitalmarketing.jpg",
+    heroImage: "/images/digitalmarketing.jpg",
+    challenge: "AtoZ Property Construction needed a professional online presence to showcase their work and make it easy for potential clients to request quotes and view their portfolio.",
+    solution: "Built a modern, image-rich website featuring project galleries, service descriptions, and an intuitive contact system that highlights their expertise and completed projects.",
+    results: [
+      { label: "Lead Generation", value: "+180%" },
+      { label: "Project Inquiries", value: "+200%" },
+      { label: "Page Speed", value: "0.9s" },
+    ],
+    gallery: [
+      "/images/digitalmarketing.jpg",
+      "/images/branding.jpg",
+    ],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
     slug: "techflow-redesign",
     title: "TechFlow Platform Redesign",
     summary: "A complete UX overhaul for a B2B SaaS platform, increasing user engagement by 200%.",
@@ -148,6 +192,10 @@ export const projects: Project[] = [
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
 ];
+
+
+
+
 
 
 
