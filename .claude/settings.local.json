@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(git -C \"C:/Users/rusty/aelioweb\" log --oneline -5)",
+      "Bash(git -C \"C:/Users/rusty/aelioweb\" diff HEAD -- app/components/layout/Navbar.tsx)",
+      "Bash(git -C \"C:/Users/rusty/aelioweb\" diff HEAD -- app/solutions/web-development/page.tsx)",
+      "Bash(git -C \"C:/Users/rusty/aelioweb\" diff HEAD -- app/solutions/digital-marketing/page.tsx)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}

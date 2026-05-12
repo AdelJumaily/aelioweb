@@ -354,30 +354,30 @@ export default function PricingPage() {
   }, [activeTab]);
 
   return (
-    <main className="bg-[#f5f1e8] min-h-screen">
-      <section id="pricing" className="relative bg-[#f5f1e8] px-6 md:px-12 lg:px-20 py-24 md:py-32">
+    <main className="min-h-screen bg-[#F5F5F0]">
+      <section id="pricing" className="relative px-6 md:px-10 lg:px-20 pt-32 md:pt-40 pb-24 md:pb-32">
         <div className="max-w-7xl mx-auto">
           {/* Heading */}
           <div className="text-center mb-16">
-            <h1 className="shadow-headline text-4xl md:text-5xl lg:text-6xl mb-4">
+            <h1 className="text-[clamp(2.75rem,6vw,4.5rem)] font-bold leading-[1.05] mb-6 text-[#0A0A0A]">
               Pricing
             </h1>
-            <p className="text-base md:text-lg text-gray-700 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-[#6B6B6B] max-w-2xl mx-auto">
               Choose the service and plan that matches where your brand is today. From web development to video production, branding, and ongoing maintenance.
             </p>
           </div>
 
           {/* Tabs */}
           <div className="flex justify-center mb-12">
-            <div className="inline-flex flex-wrap gap-4 md:gap-6 lg:gap-10 border-b border-gray-300 justify-center">
+            <div className="inline-flex flex-wrap gap-4 md:gap-6 lg:gap-10 border-b border-[#0A0A0A]/15 justify-center">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`pb-3 text-xs sm:text-sm md:text-base font-medium transition-colors whitespace-nowrap ${
                     activeTab === tab.id
-                      ? "text-black border-b-2 border-black"
-                      : "text-gray-600 hover:text-gray-900"
+                      ? "text-[#0A0A0A] border-b-2 border-[#0A0A0A]"
+                      : "text-[#6B6B6B] hover:text-[#0A0A0A]"
                   }`}
                 >
                   {tab.label}
@@ -406,7 +406,7 @@ export default function PricingPage() {
                   className={`relative bg-white rounded-xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
                     plan.popular 
                       ? "border-[#FF5722] lg:scale-105 lg:-mt-4" 
-                      : "border-gray-200"
+                      : "border-[#0A0A0A]/10"
                   }`}
                 >
                   {plan.popular && (
@@ -420,12 +420,12 @@ export default function PricingPage() {
                   <div className="p-8">
                     {/* Plan Header */}
                     <div className="mb-6">
-                      <h3 className="shadow-headline text-2xl font-bold mb-2">{plan.name}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{plan.tagline}</p>
+                      <h3 className="text-2xl font-bold mb-2 text-[#0A0A0A]">{plan.name}</h3>
+                      <p className="text-[#6B6B6B] text-sm mb-4">{plan.tagline}</p>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-4xl font-bold text-black">{plan.price}</span>
+                        <span className="text-4xl font-bold text-[#0A0A0A]">{plan.price}</span>
                         {priceSuffix && (
-                          <span className="text-gray-500 text-sm">{priceSuffix}</span>
+                          <span className="text-[#6B6B6B] text-sm">{priceSuffix}</span>
                         )}
                       </div>
                     </div>
@@ -447,7 +447,7 @@ export default function PricingPage() {
                               d="M5 13l4 4L19 7" 
                             />
                           </svg>
-                          <span className="text-gray-700 text-sm leading-relaxed">{feature}</span>
+                          <span className="text-[#0A0A0A]/80 text-sm leading-relaxed">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -483,8 +483,8 @@ export default function PricingPage() {
                         plan.popular
                           ? "bg-[#FF5722] text-white hover:bg-[#E64A19] shadow-lg hover:shadow-xl"
                           : plan.price === "Custom" || plan.price === "Upon Request"
-                          ? "bg-white border-2 border-black text-black hover:bg-black hover:text-white"
-                          : "bg-black text-white hover:bg-gray-800 shadow-lg hover:shadow-xl"
+                          ? "bg-white border-2 border-[#0A0A0A] text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white"
+                          : "bg-[#0A0A0A] text-white hover:bg-[#2a2a2a] shadow-lg hover:shadow-xl"
                       }`}
                     >
                       {plan.cta}
@@ -496,45 +496,12 @@ export default function PricingPage() {
           </div>
 
           {/* Description */}
-          <p className="text-center text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
+          <p className="text-center text-sm md:text-base text-[#6B6B6B] max-w-3xl mx-auto">
             Our packages are built to scale with your business. From strategy to
             execution, we tailor each engagement to match your growth stage.
           </p>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-[#f5f1e8] border-t border-gray-300 py-16 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="shadow-headline text-xl mb-4">Navigation</h3>
-              <ul className="space-y-2 text-gray-700">
-                <li><a href="/#solutions" className="hover:text-gray-900 transition-colors">Solutions</a></li>
-                <li><a href="/#about" className="hover:text-gray-900 transition-colors">About Us</a></li>
-                <li><a href="/#contact" className="hover:text-gray-900 transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="shadow-headline text-xl mb-4">Social Links</h3>
-              <ul className="space-y-2 text-gray-700">
-                <li><a href="https://www.linkedin.com/company/aelio" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">LinkedIn</a></li>
-                <li><a href="https://twitter.com/aelio" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">Twitter</a></li>
-                <li><a href="https://www.instagram.com/aelio.web?igsh=MWRicGNidHNlZXduaA==" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">Instagram</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="shadow-headline text-xl mb-4">Contact</h3>
-              <p className="text-gray-700">
-                <a href="mailto:info@aelio.dev" className="hover:text-gray-900 transition-colors">info@aelio.dev</a>
-              </p>
-            </div>
-          </div>
-          <div className="text-center text-gray-500 text-sm">
-            © {new Date().getFullYear()} Aelio. All rights reserved.
-          </div>
-        </div>
-      </footer>
 
       <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>

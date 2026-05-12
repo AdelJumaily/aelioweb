@@ -39,28 +39,31 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
       className="fixed top-0 left-0 right-0 z-50 bg-[#F5F5F0]/40 backdrop-blur-sm border-t border-[#0A0A0A]/5"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex h-16 items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="text-lg font-bold text-[#0A0A0A] tracking-tight group-hover:text-[#FF5722] transition-colors uppercase">
-              Aelio
-            </span>
-          </Link>
+          <div className="relative z-10 flex shrink-0 items-center">
+            <Link href="/" className="flex items-center gap-2 group">
+              <span className="text-lg font-bold text-[#0A0A0A] tracking-tight group-hover:text-[#FF5722] transition-colors uppercase">
+                Aelio
+              </span>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-[#0A0A0A] hover:text-[#0A0A0A]/70 transition-colors relative group uppercase tracking-wide"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop Navigation — centered in the bar */}
+          <div className="pointer-events-none absolute inset-0 hidden lg:flex items-center justify-center">
+            <div className="pointer-events-auto flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-medium text-[#0A0A0A] hover:text-[#0A0A0A]/70 transition-colors relative group uppercase tracking-wide"
+                >
+                  {link.label}
+                </Link>
+              ))}
 
-            {/* Solutions Dropdown */}
-            <div ref={dropdownRef} className="relative">
+              {/* Solutions Dropdown */}
+              <div ref={dropdownRef} className="relative">
               <button
                 onClick={() => setIsSolutionsOpen(!isSolutionsOpen)}
                 onMouseEnter={() => setIsSolutionsOpen(true)}
@@ -77,7 +80,7 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
               
               {isSolutionsOpen && (
                 <div 
-                  className="absolute top-full left-0 mt-6 w-[600px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-[#0A0A0A]/10 p-6 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                  className="absolute top-full left-1/2 z-50 mt-6 w-[min(600px,calc(100vw-3rem))] -translate-x-1/2 rounded-2xl border border-[#0A0A0A]/10 bg-white/95 p-6 shadow-lg backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
                   onMouseEnter={() => setIsSolutionsOpen(true)}
                   onMouseLeave={() => setIsSolutionsOpen(false)}
                 >
@@ -144,18 +147,19 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
                   </div>
                 </div>
               )}
-            </div>
+              </div>
 
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-[#0A0A0A] hover:text-[#0A0A0A]/70 transition-colors relative group uppercase tracking-wide"
-            >
-              Contact
-            </Link>
+              <Link
+                href="/contact"
+                className="text-sm font-medium text-[#0A0A0A] hover:text-[#0A0A0A]/70 transition-colors relative group uppercase tracking-wide"
+              >
+                Contact
+              </Link>
+            </div>
           </div>
 
           {/* CTA Button */}
-          <div className="flex items-center gap-4">
+          <div className="relative z-10 ml-auto flex shrink-0 items-center gap-4">
             <button
               onClick={() => {
                 if (onContactClick) {

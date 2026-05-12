@@ -39,14 +39,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-bebas: var(--font-bebas);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  /* Next.js sets --font-bebas, --font-inter, --font-jetbrains on <html>; avoid self-referential --font-sans (breaks computed style → system-ui stack) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 }
 
 .font-bebas {
-  font-family: var(--font-bebas), var(--font-sans), sans-serif;
+  font-family: var(--font-bebas), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @keyframes scroll {
@@ -134,7 +134,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-bebas), var(--font-sans), 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  font-family: var(--font-bebas), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -144,7 +144,7 @@ body {
 
 /* Headers use Bebas Neue */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-bebas), var(--font-sans), 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  font-family: var(--font-bebas), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   letter-spacing: 0.02em;
   font-weight: 400;
 }
