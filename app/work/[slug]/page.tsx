@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const project = projects.find((p) => p.slug === params.slug);
   if (!project) return { title: "Project Not Found | Aelio" };
   return {
-    title: `${project.title} | Aelio`,
+    title: `${project.title} — Case Study | Aelio`,
     description: project.summary,
   };
 }
@@ -112,9 +112,9 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           )}
 
           <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-6 text-[#0A0A0A]">
+            <h2 className="text-2xl font-bold mb-6 text-[#0A0A0A]">
               Technology Used
-            </h3>
+            </h2>
             <div className="flex flex-wrap gap-3">
               {project.techStack.map((tech) => (
                 <span

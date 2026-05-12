@@ -56,18 +56,18 @@ export default function SiteFooter() {
             </h3>
             <ul className="space-y-3">
               {[
-                "Website Design",
-                "Web Development",
-                "Landing Pages",
-                "SEO & Performance",
-                "Branding",
+                { label: "Website Design", href: "/services/web-design" },
+                { label: "Web Development", href: "/solutions/web-development" },
+                { label: "Landing Pages", href: "/services/web-design" },
+                { label: "SEO & Performance", href: "/contact" },
+                { label: "Branding", href: "/services/branding" },
               ].map((service) => (
-                <li key={service}>
+                <li key={service.label}>
                   <Link
-                    href="/services"
+                    href={service.href}
                     className="text-[15px] text-white/80 hover:text-[#FF5722] transition-colors"
                   >
-                    {service}
+                    {service.label}
                   </Link>
                 </li>
               ))}
@@ -96,7 +96,7 @@ export default function SiteFooter() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/60">
-            © 2025 Aelio. All rights reserved.
+            © 2026 Aelio. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/60">
             <Link href="/legal/privacy" className="hover:text-white transition-colors">

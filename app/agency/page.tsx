@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
-export const metadata = {
-  title: "About Aelio | Agency",
-  description: "We're a remote-first web agency obsessed with performance and design.",
+export const metadata: Metadata = {
+  title: "About Aelio — Web Design Studio in the DMV",
+  description:
+    "Aelio is a boutique web design studio founded by Adel Al Jumaily, building high-performance websites in Next.js and Framer for businesses across Northern Virginia, DC, and Maryland.",
 };
 
 export default function AgencyPage() {
