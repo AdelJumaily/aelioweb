@@ -36,6 +36,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const stepRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         selectedDate: "",
         selectedTime: "",
       });
+      setSubmitSuccess(false);
     }
   }, [isOpen]);
 
@@ -173,28 +175,33 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setSubmitError(null);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          source: "site-modal",
+        }),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as { error?: string; hint?: string };
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form');
+        const parts = [data.error, data.hint].filter(Boolean);
+        throw new Error(parts.join(" ") || "Failed to submit form");
       }
 
-      // If Cal.com is configured, redirect to booking
       if (process.env.NEXT_PUBLIC_CALCOM_URL) {
         const calUrl = `${process.env.NEXT_PUBLIC_CALCOM_URL}?name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}`;
-        window.open(calUrl, '_blank');
+        window.open(calUrl, "_blank");
       }
 
-      alert("Thank you! We'll be in touch soon.");
-      onClose();
+      setSubmitSuccess(true);
+      window.setTimeout(() => {
+        onClose();
+      }, 2200);
     } catch (error) {
       console.error('Submission error:', error);
       setSubmitError(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
@@ -490,11 +497,18 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </div>
               )}
 
+              {submitSuccess && (
+                <div className="bg-emerald-500/20 border border-emerald-400/50 rounded-lg p-4 text-emerald-100">
+                  Thanks — we received your details. We&apos;ll follow up shortly. This window will close.
+                </div>
+              )}
+
               <div className="flex justify-between pt-6 pb-4">
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="px-8 py-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all flex items-center gap-2 text-lg font-medium"
+                  disabled={isSubmitting || submitSuccess}
+                  className="px-8 py-4 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all flex items-center gap-2 text-lg font-medium disabled:opacity-40"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -503,15 +517,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </button>
                 <button
                   type="submit"
-                  disabled={!canProceed() || isSubmitting}
+                  disabled={!canProceed() || isSubmitting || submitSuccess}
                   className={`px-8 py-4 rounded-full text-lg font-medium transition-all flex items-center gap-2 ${
-                    canProceed() && !isSubmitting
+                    canProceed() && !isSubmitting && !submitSuccess
                       ? "bg-white text-black hover:bg-gray-100"
                       : "bg-gray-600 text-gray-400 cursor-not-allowed"
                   }`}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Book Appointment'}
-                  {!isSubmitting && (
+                  {isSubmitting ? "Submitting..." : submitSuccess ? "Sent" : "Send & finish"}
+                  {!isSubmitting && !submitSuccess && (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>

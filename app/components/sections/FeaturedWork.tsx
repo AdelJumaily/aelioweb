@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, ExternalLink } from "lucide-react";
 import { projects } from "@/lib/content/projects";
 
 if (typeof window !== "undefined") {
@@ -25,7 +25,7 @@ export default function FeaturedWork() {
     carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 
-  const featuredProjects = projects.slice(0, 6);
+  const featuredProjects = projects;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -122,13 +122,15 @@ export default function FeaturedWork() {
                     <p className="text-base text-[#6B6B6B] mb-4">
                       {project.summary}
                     </p>
-                    <Link
-                      href={`/work/${project.slug}`}
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-[15px] font-medium text-[#FF5722] hover:text-[#E64A19] inline-flex items-center gap-2 transition-colors"
                     >
-                      View Project
-                      <ArrowRight size={16} />
-                    </Link>
+                      Visit Site
+                      <ExternalLink size={16} />
+                    </a>
                   </div>
                 </div>
               </div>

@@ -80,70 +80,29 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
               
               {isSolutionsOpen && (
                 <div 
-                  className="absolute top-full left-1/2 z-50 mt-6 w-[min(600px,calc(100vw-3rem))] -translate-x-1/2 rounded-2xl border border-[#0A0A0A]/10 bg-white/95 p-6 shadow-lg backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
+                  className="absolute top-full left-1/2 z-50 mt-6 w-[min(320px,calc(100vw-3rem))] -translate-x-1/2 rounded-2xl border border-[#0A0A0A]/10 bg-white/95 p-6 shadow-lg backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200"
                   onMouseEnter={() => setIsSolutionsOpen(true)}
                   onMouseLeave={() => setIsSolutionsOpen(false)}
                 >
-                  <div className="grid grid-cols-2 gap-8">
-                    {/* Left Column - Services */}
-                    <div>
-                      <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-4 font-semibold">
-                        Services
-                      </div>
-                      <div className="space-y-1">
-                        {services.map((service) => (
-                          <Link
-                            key={service.id}
-                            href={`/services/${service.id}`}
-                            onClick={() => setIsSolutionsOpen(false)}
-                            className="block px-3 py-2.5 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-all duration-200 group"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-[#FF5722] text-xs font-bold">{service.number}</span>
-                              <span className="group-hover:translate-x-1 transition-transform duration-200">
-                                {service.title}
-                              </span>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Right Column - Solutions */}
-                    <div>
-                      <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-4 font-semibold">
-                        Solutions
-                      </div>
-                      <div className="space-y-1">
-                        <Link
-                          href="/solutions/web-development"
-                          onClick={() => setIsSolutionsOpen(false)}
-                          className="block px-3 py-2.5 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-all duration-200 group"
-                        >
-                          <span className="group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                            Web Development
+                  <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-4 font-semibold">
+                    Solutions
+                  </div>
+                  <div className="space-y-1">
+                    {services.map((service) => (
+                      <Link
+                        key={service.id}
+                        href={`/services/${service.id}`}
+                        onClick={() => setIsSolutionsOpen(false)}
+                        className="block px-3 py-2.5 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-all duration-200 group"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#FF5722] text-xs font-bold">{service.number}</span>
+                          <span className="group-hover:translate-x-1 transition-transform duration-200">
+                            {service.title}
                           </span>
-                        </Link>
-                        <Link
-                          href="/solutions/digital-marketing"
-                          onClick={() => setIsSolutionsOpen(false)}
-                          className="block px-3 py-2.5 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-all duration-200 group"
-                        >
-                          <span className="group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                            Digital Marketing
-                          </span>
-                        </Link>
-                        <Link
-                          href="/solutions/other-services"
-                          onClick={() => setIsSolutionsOpen(false)}
-                          className="block px-3 py-2.5 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-all duration-200 group"
-                        >
-                          <span className="group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                            Other Services
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               )}
@@ -209,7 +168,7 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
               
               {/* Mobile Solutions */}
               <div className="px-4 py-2">
-                <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-2">Services</div>
+                <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-2">Solutions</div>
                 {services.map((service) => (
                   <Link
                     key={service.id}
@@ -220,31 +179,6 @@ export default function Navbar({ onContactClick }: NavbarProps = {}) {
                     {service.number} {service.title}
                   </Link>
                 ))}
-              </div>
-              
-              <div className="px-4 py-2">
-                <div className="text-xs uppercase tracking-wider text-[#0A0A0A]/60 mb-2">Solutions</div>
-                <Link
-                  href="/solutions/web-development"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-colors"
-                >
-                  Web Development
-                </Link>
-                <Link
-                  href="/solutions/digital-marketing"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-colors"
-                >
-                  Digital Marketing
-                </Link>
-                <Link
-                  href="/solutions/other-services"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-sm font-medium text-[#0A0A0A]/90 hover:bg-[#0A0A0A]/5 hover:text-[#0A0A0A] transition-colors"
-                >
-                  Other Services
-                </Link>
               </div>
 
               <Link

@@ -3,8 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/content/projects";
 
 interface ProjectCardProps {
@@ -12,6 +11,12 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const linkProps = {
+    href: project.url,
+    target: "_blank" as const,
+    rel: "noopener noreferrer",
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -21,7 +26,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       transition={{ duration: 0.3 }}
       className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-[rgba(0,0,0,0.06)]"
     >
-      <Link href={`/work/${project.slug}`}>
+      <a {...linkProps}>
         <div className="relative h-64 md:h-80 overflow-hidden">
           <Image
             src={project.thumbnail}
@@ -52,11 +57,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </h3>
           <p className="text-base text-[#6B6B6B] mb-4">{project.summary}</p>
           <div className="text-[15px] font-medium text-[#FF5722] hover:text-[#E64A19] inline-flex items-center gap-2 transition-colors">
-            View Project
-            <ArrowRight size={16} />
+            Visit Site
+            <ExternalLink size={16} />
           </div>
         </div>
-      </Link>
+      </a>
     </motion.div>
   );
 }

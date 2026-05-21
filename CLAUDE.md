@@ -58,7 +58,9 @@ Two animation libraries coexist:
 
 ### Contact flow
 
-`ContactModal` (`app/components/ContactModal.tsx`) is a three-step GSAP-animated modal (company info → personal info → calendar scheduling). It posts to `/api/contact` which uses **Resend** to email `info@aelio.dev`. The `RESEND_API_KEY` environment variable must be set.
+Forms POST to **`/api/contact`** (Next.js Route Handler), which sends mail through **[Resend](https://resend.com/)**. Implementations: `app/components/forms/ContactModal.tsx` (multi-step + optional Cal.com) and `app/contact/page.tsx`. `app/components/ContactModal.tsx` re-exports the forms modal for the navbar.
+
+Set **`RESEND_API_KEY`** in `.env.local`. Optional: **`RESEND_FROM`** (verified sender, e.g. `Aelio <hello@yourdomain.com>`), **`CONTACT_TO_EMAIL`** (comma-separated inboxes; default `info@aelio.dev`). Optional **`NEXT_PUBLIC_CALCOM_URL`** opens Cal after a successful modal submit.
 
 ### Design system
 

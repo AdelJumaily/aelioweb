@@ -7,6 +7,7 @@ export interface Project {
   year: number;
   thumbnail: string;
   heroImage: string;
+  url: string;
   challenge: string;
   solution: string;
   results: { label: string; value: string }[];
@@ -18,187 +19,70 @@ export const projects: Project[] = [
   {
     slug: "potomac-family-dental",
     title: "Potomac Family Dental",
-    summary: "Modern dental practice website designed to attract new patients and streamline appointment booking.",
+    summary:
+      "Family and cosmetic dentistry website for a Woodbridge practice—appointments, services, and patient resources in one place.",
     services: ["Web Design", "Development"],
-    tags: ["Healthcare", "Next.js", "Medical"],
+    tags: ["Healthcare", "Local Business"],
     year: 2024,
-    thumbnail: "/images/webdesign.jpg",
-    heroImage: "/images/webdesign.jpg",
-    challenge: "Potomac Family Dental needed a modern, trustworthy website that would help them stand out in a competitive market and make it easy for patients to book appointments.",
-    solution: "Designed and developed a clean, professional website with integrated appointment booking, patient testimonials, and mobile-responsive design that reflects the practice's commitment to quality care.",
+    thumbnail: "/images/potomac-family-dental.png",
+    heroImage: "/images/potomac-family-dental.png",
+    url: "https://potomacfamilydental.com/",
+    challenge:
+      "The practice needed a trustworthy online presence that helps new patients understand services, find the office, and request appointments without calling first.",
+    solution:
+      "Built a clear, professional site organized around treatments, insurance, and new-patient info—with prominent appointment CTAs and a warm brand that matches the in-office experience.",
     results: [
-      { label: "Appointment Bookings", value: "+150%" },
-      { label: "Page Speed", value: "1.1s" },
-      { label: "Mobile Traffic", value: "+120%" },
+      { label: "Focus", value: "Patient acquisition" },
+      { label: "Scope", value: "Full practice site" },
+      { label: "Region", value: "Northern Virginia" },
     ],
-    gallery: [
-      "/images/webdesign.jpg",
-      "/images/dashboard.png",
-    ],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    gallery: ["/images/potomac-family-dental.png"],
+    techStack: ["Responsive design", "SEO", "Appointment CTAs"],
   },
   {
-    slug: "atoz-property-construction",
-    title: "AtoZ Property Construction",
-    summary: "Professional construction company website showcasing services and completed projects to attract new clients.",
+    slug: "autoforge",
+    title: "Autoforge",
+    summary:
+      "Landing page for a visual FTC path planner—waypoints, splines, and one-click Java export for competition teams.",
     services: ["Web Design", "Development"],
-    tags: ["Construction", "Next.js", "Business"],
-    year: 2024,
-    thumbnail: "/images/digitalmarketing.jpg",
-    heroImage: "/images/digitalmarketing.jpg",
-    challenge: "AtoZ Property Construction needed a professional online presence to showcase their work and make it easy for potential clients to request quotes and view their portfolio.",
-    solution: "Built a modern, image-rich website featuring project galleries, service descriptions, and an intuitive contact system that highlights their expertise and completed projects.",
+    tags: ["SaaS", "Education", "FTC"],
+    year: 2025,
+    thumbnail: "/images/autoforge.png",
+    heroImage: "/images/autoforge.png",
+    url: "https://autoforge-two.vercel.app/",
+    challenge:
+      "FIRST Tech Challenge teams spend hours hand-writing autonomous paths. Autoforge needed a product site that explains the workflow and captures early-access signups before launch.",
+    solution:
+      "Designed a dark, product-led landing page with a strong hero, feature breakdown, how-it-works steps, and waitlist CTA—built for developers and student teams evaluating the tool.",
     results: [
-      { label: "Lead Generation", value: "+180%" },
-      { label: "Project Inquiries", value: "+200%" },
-      { label: "Page Speed", value: "0.9s" },
+      { label: "Product", value: "FTC path planner" },
+      { label: "Export", value: "RoadRunner Java" },
+      { label: "Status", value: "Early access" },
     ],
-    gallery: [
-      "/images/digitalmarketing.jpg",
-      "/images/branding.jpg",
-    ],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    gallery: ["/images/autoforge.png"],
+    techStack: ["Next.js", "Vercel", "Product marketing"],
   },
   {
-    slug: "techflow-redesign",
-    title: "TechFlow Platform Redesign",
-    summary: "A complete UX overhaul for a B2B SaaS platform, increasing user engagement by 200%.",
+    slug: "roarbotics",
+    title: "Roarbotics",
+    summary:
+      "Team site for Fairfax High School’s FIRST Tech Challenge robotics program—sponsors, recruitment, and community outreach.",
     services: ["Web Design", "Development"],
-    tags: ["Next.js", "React", "UX Design", "B2B"],
+    tags: ["Education", "Nonprofit", "Robotics"],
     year: 2024,
-    thumbnail: "/images/dashboard.png",
-    heroImage: "/images/dashboard.png",
-    challenge: "TechFlow's legacy platform had a 40% bounce rate and poor user retention. Users found the interface confusing and slow.",
-    solution: "We conducted user research, redesigned the entire platform with a focus on clarity and speed, and rebuilt it on Next.js for 10x faster load times.",
+    thumbnail: "/images/roarbotics.png",
+    heroImage: "/images/roarbotics.png",
+    url: "https://www.roarbotics.org/",
+    challenge:
+      "The team needed a home base online for sponsors, prospective members, and supporters to understand the mission and get involved.",
+    solution:
+      "Created an approachable site with a bold hero, clear paths to join or learn more, and sections for sponsors and about the program—reflecting student energy and real competition work.",
     results: [
-      { label: "User Engagement", value: "+200%" },
-      { label: "Load Time", value: "0.8s" },
-      { label: "Bounce Rate", value: "-60%" },
+      { label: "Program", value: "FIRST Tech Challenge" },
+      { label: "School", value: "Fairfax High School" },
+      { label: "Goals", value: "Recruit & sponsor" },
     ],
-    gallery: [
-      "/images/dashboard.png",
-      "/images/laptop.png",
-      "/images/webdesign.jpg",
-    ],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "PostgreSQL"],
-  },
-  {
-    slug: "bloom-ecommerce",
-    title: "Bloom Studio E-Commerce",
-    summary: "High-converting e-commerce site with custom Shopify integration, boosting sales by 180%.",
-    services: ["E-Commerce", "Web Development"],
-    tags: ["Shopify", "Next.js", "E-Commerce"],
-    year: 2024,
-    thumbnail: "/images/webdesign.jpg",
-    heroImage: "/images/webdesign.jpg",
-    challenge: "Bloom needed a modern e-commerce platform that could handle high traffic and convert visitors into customers.",
-    solution: "Built a headless Shopify storefront with Next.js, implementing advanced filtering, fast checkout, and mobile-first design.",
-    results: [
-      { label: "Sales Increase", value: "+180%" },
-      { label: "Conversion Rate", value: "+45%" },
-      { label: "Page Speed", value: "1.2s" },
-    ],
-    gallery: [
-      "/images/webdesign.jpg",
-      "/images/branding.jpg",
-    ],
-    techStack: ["Next.js", "Shopify", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    slug: "elevate-fitness",
-    title: "Elevate Fitness Brand & Website",
-    summary: "Complete brand identity and website redesign for a fitness startup, increasing membership signups by 250%.",
-    services: ["Branding", "Web Design", "Development"],
-    tags: ["Branding", "Next.js", "Fitness"],
-    year: 2024,
-    thumbnail: "/images/branding.jpg",
-    heroImage: "/images/branding.jpg",
-    challenge: "Elevate needed a strong brand identity and website to compete in the crowded fitness market.",
-    solution: "Created a bold, energetic brand system and built a conversion-focused website with integrated booking and payment.",
-    results: [
-      { label: "Signups", value: "+250%" },
-      { label: "Brand Recognition", value: "+300%" },
-      { label: "Mobile Traffic", value: "+180%" },
-    ],
-    gallery: [
-      "/images/branding.jpg",
-      "/images/digitalmarketing.jpg",
-    ],
-    techStack: ["Next.js", "Framer Motion", "Stripe"],
-  },
-  {
-    slug: "summit-saas",
-    title: "Summit SaaS Dashboard",
-    summary: "Enterprise SaaS platform with advanced analytics and real-time collaboration features.",
-    services: ["Web Development", "UX Design"],
-    tags: ["SaaS", "Next.js", "Enterprise"],
-    year: 2023,
-    thumbnail: "/images/laptop.png",
-    heroImage: "/images/laptop.png",
-    challenge: "Summit needed a scalable dashboard that could handle complex data visualization and real-time updates.",
-    solution: "Built a performant dashboard with React Server Components, optimized data fetching, and intuitive UX patterns.",
-    results: [
-      { label: "User Satisfaction", value: "+95%" },
-      { label: "Load Time", value: "0.9s" },
-      { label: "Task Completion", value: "+65%" },
-    ],
-    gallery: [
-      "/images/laptop.png",
-      "/images/dashboard.png",
-    ],
-    techStack: ["Next.js", "React", "TypeScript", "PostgreSQL"],
-  },
-  {
-    slug: "horizon-landing",
-    title: "Horizon Landing Page",
-    summary: "High-converting landing page that generated 500+ qualified leads in the first month.",
-    services: ["Landing Pages", "Web Design"],
-    tags: ["Landing Page", "Conversion", "Next.js"],
-    year: 2024,
-    thumbnail: "/images/webdesign.jpg",
-    heroImage: "/images/webdesign.jpg",
-    challenge: "Horizon needed a landing page that could convert visitors at scale for their product launch.",
-    solution: "Designed and built a conversion-optimized landing page with A/B testing, fast load times, and clear value proposition.",
-    results: [
-      { label: "Leads Generated", value: "500+" },
-      { label: "Conversion Rate", value: "12%" },
-      { label: "Load Time", value: "0.7s" },
-    ],
-    gallery: [
-      "/images/webdesign.jpg",
-    ],
-    techStack: ["Next.js", "Tailwind CSS", "Vercel Analytics"],
-  },
-  {
-    slug: "acme-corp",
-    title: "Acme Corp Website Redesign",
-    summary: "Modern corporate website redesign that improved brand perception and increased inquiries by 140%.",
-    services: ["Web Design", "Development", "SEO"],
-    tags: ["Corporate", "Next.js", "SEO"],
-    year: 2023,
-    thumbnail: "/images/digitalmarketing.jpg",
-    heroImage: "/images/digitalmarketing.jpg",
-    challenge: "Acme's outdated website didn't reflect their industry leadership and was losing potential clients.",
-    solution: "Redesigned the entire site with modern UX, improved SEO, and faster performance to better represent the brand.",
-    results: [
-      { label: "Inquiries", value: "+140%" },
-      { label: "SEO Rankings", value: "+85%" },
-      { label: "Time on Site", value: "+200%" },
-    ],
-    gallery: [
-      "/images/digitalmarketing.jpg",
-      "/images/branding.jpg",
-    ],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    gallery: ["/images/roarbotics.png"],
+    techStack: ["Responsive design", "Community site"],
   },
 ];
-
-
-
-
-
-
-
-
-
-

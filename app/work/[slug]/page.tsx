@@ -50,6 +50,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               ))}
               <span className="text-sm text-[#6B6B6B]">{project.year}</span>
             </div>
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-[#0A0A0A] text-white rounded-lg font-medium hover:bg-[#2C1810] transition-colors"
+            >
+              Visit Live Site
+              <ExternalLink size={18} />
+            </a>
           </div>
 
           <div className="relative h-[60vh] rounded-xl overflow-hidden mb-16 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">

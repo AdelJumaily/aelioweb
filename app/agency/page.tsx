@@ -12,23 +12,31 @@ export default function AgencyPage() {
     <main className="min-h-screen bg-[#F5F5F0]">
       <article className="pt-40 pb-32 px-6 md:px-10">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-16">
-            <h1 className="text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[1.05] mb-6 text-[#0A0A0A]">
-              About Aelio
-            </h1>
-            <p className="text-xl text-[#6B6B6B]">
-              We&apos;re a remote-first web agency obsessed with performance and design.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-start mb-16">
+            <div className="min-w-0">
+              <h1 className="text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[1.05] mb-6 text-[#0A0A0A]">
+                About Aelio
+              </h1>
+              <p className="text-xl text-[#6B6B6B] max-w-xl">
+                We&apos;re a remote-first web agency obsessed with performance and design.
+              </p>
+            </div>
 
-          <div className="relative h-96 rounded-xl overflow-hidden mb-16 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
-            <Image
-              src="/APC_0218.JPG"
-              alt="Aelio Team"
-              fill
-              className="object-cover object-[50%_30%]"
-              priority
-            />
+            <figure className="w-full max-w-[min(100%,18rem)] md:max-w-[20rem] mx-auto md:mx-0 md:justify-self-end shrink-0">
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+                <Image
+                  src="/APC_0225.png"
+                  alt="Adel Al Jumaily, founder of Aelio"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 288px, 320px"
+                  priority
+                />
+              </div>
+              <figcaption className="mt-3 text-sm text-[#6B6B6B] text-center md:text-right">
+                Adel Al Jumaily, Founder
+              </figcaption>
+            </figure>
           </div>
 
           <div className="prose prose-lg max-w-none mb-16">

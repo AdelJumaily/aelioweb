@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 
+const contactFieldClass =
+  "w-full px-4 py-3 rounded-lg border border-black/15 bg-white text-[#0A0A0A] placeholder:text-[#6B6B6B] focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent [color-scheme:light]";
+
 export default function ContactPage() {
+  const honeypotRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,15 +22,46 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // TODO: Implement form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    if (honeypotRef.current?.value) {
       setIsSubmitted(true);
-    }, 1000);
+      return;
+    }
+    setSubmitError(null);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          companyName: formData.company,
+          website: formData.website,
+          interest: formData.interest,
+          services: formData.interest ? [formData.interest] : [],
+          budget: formData.budget,
+          timeline: formData.timeline,
+          projectDescription: formData.message,
+          readyToStart: formData.ready,
+          source: "contact-page",
+          _honeypot: honeypotRef.current?.value ?? "",
+        }),
+      });
+      const data = (await response.json()) as { error?: string; hint?: string };
+      if (!response.ok) {
+        const parts = [data.error, data.hint].filter(Boolean);
+        throw new Error(parts.join(" ") || "Something went wrong. Please try again.");
+      }
+      setIsSubmitted(true);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Failed to send. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -81,7 +116,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 onSubmit={handleSubmit}
-                className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-[rgba(0,0,0,0.06)]"
+                className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-[rgba(0,0,0,0.06)] text-[#0A0A0A] [color-scheme:light]"
               >
                 {isSubmitted ? (
                   <div className="text-center py-12">
@@ -105,7 +140,7 @@ export default function ContactPage() {
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                          className={contactFieldClass}
                           placeholder="Your full name"
                         />
                       </div>
@@ -118,7 +153,7 @@ export default function ContactPage() {
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                          className={contactFieldClass}
                           placeholder="you@company.com"
                         />
                       </div>
@@ -132,7 +167,7 @@ export default function ContactPage() {
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                        className={contactFieldClass}
                         placeholder="Your company name (optional)"
                       />
                     </div>
@@ -145,7 +180,7 @@ export default function ContactPage() {
                         type="url"
                         value={formData.website}
                         onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                        className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                        className={contactFieldClass}
                         placeholder="https://yoursite.com (optional)"
                       />
                     </div>
@@ -158,7 +193,7 @@ export default function ContactPage() {
                         required
                         value={formData.interest}
                         onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                        className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                        className={contactFieldClass}
                       >
                         <option value="">Select a service</option>
                         <option value="redesign">Website Redesign</option>
@@ -180,7 +215,7 @@ export default function ContactPage() {
                           required
                           value={formData.budget}
                           onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                          className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                          className={contactFieldClass}
                         >
                           <option value="">Select budget</option>
                           <option value="under-1k">Under $1,000</option>
@@ -198,7 +233,7 @@ export default function ContactPage() {
                         <select
                           value={formData.timeline}
                           onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                          className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent"
+                          className={contactFieldClass}
                         >
                           <option value="">Select timeline</option>
                           <option value="asap">ASAP (1-2 weeks)</option>
@@ -219,7 +254,7 @@ export default function ContactPage() {
                         rows={6}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 border border-[rgba(0,0,0,0.15)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF5722] focus:border-transparent resize-none"
+                        className={`${contactFieldClass} resize-none`}
                         placeholder="What are your goals? What problems are you trying to solve?"
                       />
                     </div>
@@ -238,14 +273,22 @@ export default function ContactPage() {
                       </label>
                     </div>
 
-                    {/* Honeypot */}
+                    {/* Honeypot — leave empty (bots often fill hidden fields) */}
                     <input
+                      ref={honeypotRef}
                       type="text"
                       name="website_url"
-                      style={{ display: "none" }}
+                      className="hidden"
                       tabIndex={-1}
                       autoComplete="off"
+                      aria-hidden="true"
                     />
+
+                    {submitError && (
+                      <p className="text-sm text-red-600 mb-4" role="alert">
+                        {submitError}
+                      </p>
+                    )}
 
                     <button
                       type="submit"
